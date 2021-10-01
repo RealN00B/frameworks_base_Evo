@@ -6789,6 +6789,12 @@ public final class Settings {
         public static final String STATUSBAR_CLOCK_CHIP = "statusbar_clock_chip";
 
         /**
+         * Toggle between stock and color coded battery icon
+         * @hide
+         */
+        public static final String BATTERY_LEVEL_COLORS = "battery_level_colors";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
@@ -6950,6 +6956,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(HEADS_UP_BLACKLIST_VALUES);
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED);
             PRIVATE_SETTINGS.add(BACK_GESTURE_HAPTIC);
+            PRIVATE_SETTINGS.add(BATTERY_LEVEL_COLORS);
         }
 
         /**
