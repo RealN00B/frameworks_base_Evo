@@ -53,7 +53,6 @@
         <permission name="android.permission.READ_PRIVILEGED_PHONE_STATE"/>
         <permission name="android.permission.REAL_GET_TASKS"/>
         <permission name="android.permission.REQUEST_NETWORK_SCORES"/>
-        <permission name="android.permission.REBOOT"/>
         <permission name="android.permission.RECEIVE_MEDIA_RESOURCE_USAGE"/>
         <permission name="android.permission.RECOVERY"/>
         <permission name="android.permission.SET_WALLPAPER_DIM_AMOUNT"/>
@@ -91,5 +90,6 @@
         <permission name="android.permission.ACCESS_SURFACE_FLINGER" />
         <permission name="android.permission.ROTATE_SURFACE_FLINGER" />
         <permission name="android.permission.INTERNAL_SYSTEM_WINDOW" />
+        <permission name="android.permission.REBOOT" />
     </privapp-permissions>
 </permissions>
