@@ -12213,6 +12213,25 @@ public final class Settings {
          */
         @Readable
         public static final String PEOPLE_STRIP = "people_strip";
+        
+        /**
+         * Toggle to control adding a timestamp to screenshot EXIF
+         * @hide
+         */
+        public static final String SCREENSHOT_TIMESTAMP_EXIF =
+                "screenshot_timestamp_exif";
+
+        /**
+         * Enables adding a timestamp to screenshot EXIF
+         * @hide
+         */
+        public static final int ENABLE_SCREENSHOT_TIMESTAMP_EXIF = 1;
+
+        /**
+         * Disables adding a timestamp to screenshot EXIF
+         * @hide
+         */
+        public static final int DISABLE_SCREENSHOT_TIMESTAMP_EXIF = 0;
 
         /**
          * Whether or not to enable media resumption
