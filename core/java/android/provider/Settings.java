@@ -6973,6 +6973,11 @@ public final class Settings {
         public static final String MEDIA_ARTWORK_BLUR_RADIUS = "media_artwork_blur_radius";
 
         /**
+         * @hide
+         */
+        public static final String QS_PANEL_STYLE = "qs_panel_style";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
