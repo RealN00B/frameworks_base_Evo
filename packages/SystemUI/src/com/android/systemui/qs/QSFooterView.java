@@ -59,6 +59,7 @@ public class QSFooterView extends FrameLayout {
     private TextView mUsageText;
     private View mEditButton;
     private View mEditLayout;
+    private View mSpace;
 
     @Nullable
     protected TouchAnimator mFooterAnimator;
@@ -93,6 +94,7 @@ public class QSFooterView extends FrameLayout {
         mUsageText = findViewById(R.id.build);
         mEditButton = findViewById(android.R.id.edit);
         mEditLayout = findViewById(R.id.edit_layout);
+        mSpace = findViewById(R.id.spacer);
 
         updateResources();
         setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
@@ -232,12 +234,8 @@ public class QSFooterView extends FrameLayout {
     void updateEverything() {
         post(() -> {
             updateVisibilities();
-            updateClickabilities();
             setClickable(false);
         });
-    }
-
-    private void updateClickabilities() {
     }
 
     private void updateVisibilities() {
@@ -245,8 +243,16 @@ public class QSFooterView extends FrameLayout {
                 Settings.System.QS_FOOTER_DATA_USAGE, 0,
                 UserHandle.USER_CURRENT) == 1;
 
-        mUsageText.setVisibility(mShouldShowDataUsage && mExpanded ? View.VISIBLE : View.GONE);
-        if ((mExpanded) && mShouldShowDataUsage) setUsageText();
+        mSpace.setVisibility(mShouldShowDataUsage && mExpanded ? View.GONE : View.VISIBLE);
+
+        if (mExpanded && mShouldShowDataUsage) {
+            mUsageText.setVisibility(View.VISIBLE);
+            mSpace.setVisibility(View.GONE);
+            setUsageText();
+        } else {
+            mUsageText.setVisibility(View.INVISIBLE);
+            mSpace.setVisibility(View.VISIBLE);
+        }
         
         mShowEditIcon = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.QS_FOOTER_SHOW_EDIT, 1,
