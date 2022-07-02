@@ -70,6 +70,9 @@ LOCAL_REQUIRED_MODULES := \
     IconPackOutlineAndroidOverlay \
     IconPackOutlineSettingsOverlay \
     IconPackOutlineSystemUIOverlay \
+    IconPackXperiaAndroidOverlay \
+    IconPackXperiaSettingsOverlay \
+    IconPackXperiaSystemUIOverlay \
     IconPackAcherusAndroidOverlay \
     IconPackAcherusSystemUIOverlay \
     IconShapeCloudyOverlay \
