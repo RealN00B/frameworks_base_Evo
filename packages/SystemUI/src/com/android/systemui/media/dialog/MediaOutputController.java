@@ -785,7 +785,7 @@ public class MediaOutputController implements LocalMediaManager.DeviceCallback,
         dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
         SystemUIDialog.setShowForAllUsers(dialog, true);
         SystemUIDialog.registerDismissListener(dialog);
-        dialog.show();
+        mDialogLaunchAnimator.showFromView(dialog, mediaOutputDialog);
     }
 
     void launchMediaOutputBroadcastDialog(View mediaOutputDialog, BroadcastSender broadcastSender) {
