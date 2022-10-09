@@ -2191,7 +2191,10 @@ public class DecorView extends FrameLayout implements RootViewSurfaceTaker, Wind
             // Configuration now requires a caption.
             final LayoutInflater inflater = mWindow.getLayoutInflater();
             mDecorCaptionView = createDecorCaptionView(inflater);
-            updateWindowCorner();
+            if(getResources().getConfiguration().windowConfiguration.getWindowingMode() !=
+                    WindowConfiguration.WINDOWING_MODE_FULLSCREEN) {
+                updateWindowCorner();
+            }
             if (mDecorCaptionView != null) {
                 if (mDecorCaptionView.getParent() == null) {
                     addView(mDecorCaptionView, 0,
@@ -2218,7 +2221,10 @@ public class DecorView extends FrameLayout implements RootViewSurfaceTaker, Wind
         }
 
         mDecorCaptionView = createDecorCaptionView(inflater);
-        updateWindowCorner();
+        if(getResources().getConfiguration().windowConfiguration.getWindowingMode() !=
+                WindowConfiguration.WINDOWING_MODE_FULLSCREEN) {
+            updateWindowCorner();
+        }
         final View root = inflater.inflate(layoutResource, null);
         if (mDecorCaptionView != null) {
             if (mDecorCaptionView.getParent() == null) {
