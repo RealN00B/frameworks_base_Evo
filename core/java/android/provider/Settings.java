@@ -12717,6 +12717,13 @@ public final class Settings {
          * @hide
          */
         public static final String FACE_UNLOCK_METHOD = "face_unlock_method";
+        
+        /**
+         *  Toggle the media squiggle animation
+         *  0 = 0ff, 1 = on
+         * @hide
+         */
+        public static final String SHOW_MEDIA_SQUIGGLE_ANIMATION = "show_media_squiggle_animation";
 
         /**
          * These entries are considered common between the personal and the managed profile,
