@@ -1708,6 +1708,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 mGlobalActionsOnLockDisable) {
             return;
         }
+        if (mPowerManager != null && !mPowerManager.isInteractive()) {
+            Slog.d(TAG, "showGlobalActionsInternal: wake up if device is not interactive");
+            wakeUpFromPowerKey(SystemClock.uptimeMillis());
+        }
         if (mGlobalActions == null) {
             mGlobalActions = new GlobalActions(mContext, mWindowManagerFuncs);
         }
