@@ -6935,6 +6935,13 @@ public final class Settings {
         public static final String KEYGUARD_QUICK_TOGGLES = "keyguard_quick_toggles";
 
         /**
+         * Haptic feedback on scroll fling
+         * @hide
+         */ 
+        @Readable
+        public static final String SCROLL_FLING_HAPTIC_FEEDBACK = "scroll_fling_haptic_feedback";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
