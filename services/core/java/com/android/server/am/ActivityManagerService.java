@@ -13536,7 +13536,7 @@ public class ActivityManagerService extends IActivityManager.Stub
                     }
                 } else {
                     BroadcastFilter bf = (BroadcastFilter)target;
-                    if (bf.requiredPermission == null) {
+                    if (bf.exported && bf.requiredPermission == null) {
                         allProtected = false;
                         break;
                     }
