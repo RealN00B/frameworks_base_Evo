@@ -8490,7 +8490,8 @@ public class ActivityManagerService extends IActivityManager.Stub
             }
         }
 
-        EventLogTags.writeAmCrash(Binder.getCallingPid(),
+        EventLogTags.writeAmCrash(eventType.equals("native_crash") ? r.mPid
+                : Binder.getCallingPid(),
                 UserHandle.getUserId(Binder.getCallingUid()), processName,
                 r == null ? -1 : r.info.flags,
                 crashInfo.exceptionClassName,
