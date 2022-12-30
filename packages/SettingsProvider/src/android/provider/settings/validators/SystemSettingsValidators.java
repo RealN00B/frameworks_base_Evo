@@ -346,5 +346,7 @@ public class SystemSettingsValidators {
                         return true;
                     }
                 });
+        VALIDATORS.put(System.MEDIA_ARTWORK_BLUR_ENABLED, BOOLEAN_VALIDATOR);
+        VALIDATORS.put(System.MEDIA_ARTWORK_BLUR_RADIUS, new InclusiveFloatRangeValidator(5f, 25f));
     }
 }
