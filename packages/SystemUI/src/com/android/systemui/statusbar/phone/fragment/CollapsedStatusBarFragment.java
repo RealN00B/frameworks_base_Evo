@@ -113,6 +113,9 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
     private static final String STATUSBAR_CLOCK_CHIP =
             "system:" + Settings.System.STATUSBAR_CLOCK_CHIP;
 
+    private static final String HIDE_NOTIFICATION_ICONS =
+            "system:" + Settings.System.HIDE_NOTIFICATION_ICONS;
+
     public static final String TAG = "CollapsedStatusBarFragment";
     private static final String EXTRA_PANEL_STATE = "panel_state";
     public static final String STATUS_BAR_ICON_MANAGER_TAG = "status_bar_icon_manager";
@@ -155,6 +158,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
     private ClockController mClockController;
     private boolean mIsClockBlacklisted;
+    private boolean mHideNotificationIcons;
     private BatteryMeterView mBatteryMeterView;
     private StatusIconContainer mStatusIcons;
     private int mSignalClusterEndPadding = 0;
@@ -381,6 +385,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         mAnimationScheduler.addCallback(this);
 
         Dependency.get(TunerService.class).addTunable(this, STATUSBAR_CLOCK_CHIP);
+        Dependency.get(TunerService.class).addTunable(this, HIDE_NOTIFICATION_ICONS);
 
         mSecureSettings.registerContentObserverForUser(
                 Settings.Secure.getUriFor(Settings.Secure.STATUS_BAR_SHOW_VIBRATE_ICON),
@@ -441,6 +446,11 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
                         TunerService.parseIntegerSwitch(newValue, false);
                 updateStatusBarClock();
                 break;
+             case HIDE_NOTIFICATION_ICONS:
+                 mHideNotificationIcons =
+                        TunerService.parseIntegerSwitch(newValue, false);
+                 initNotificationIconArea();
+                 break;
             default:
                 break;
          }
@@ -485,6 +495,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
 
         // #disable should have already been called, so use the disable values to set visibility.
         updateNotificationIconAreaAndCallChip(mDisabled1, false);
+        if (mStatusBar != null) notificationIconArea.setVisibility(mHideNotificationIcons ? View.INVISIBLE : View.VISIBLE);
     }
 
     /**

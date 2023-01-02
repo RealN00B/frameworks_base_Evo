@@ -6795,6 +6795,11 @@ public final class Settings {
         public static final String BATTERY_LEVEL_COLORS = "battery_level_colors";
 
         /**
+         * @hide
+         */
+        public static final String HIDE_NOTIFICATION_ICONS = "hide_notification_icons";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
