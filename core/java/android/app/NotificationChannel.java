@@ -32,7 +32,6 @@ import android.os.Parcelable;
 import android.provider.Settings;
 import android.service.notification.NotificationListenerService;
 import android.text.TextUtils;
-import android.util.Slog;
 import android.util.TypedXmlPullParser;
 import android.util.TypedXmlSerializer;
 import android.util.proto.ProtoOutputStream;
@@ -1092,12 +1091,16 @@ public final class NotificationChannel implements Parcelable {
         if (sound == null || Uri.EMPTY.equals(sound)) {
             return null;
         }
-        Uri canonicalSound = context.getContentResolver().canonicalize(sound);
-        if (canonicalSound == null) {
-            // The content provider does not support canonical uris so we backup the default
+        try {
+            Uri canonicalSound = context.getContentResolver().canonicalize(sound);
+            if (canonicalSound == null) {
+                // The content provider does not support canonical uris so we backup the default
+                return Settings.System.DEFAULT_NOTIFICATION_URI;
+            }
+            return canonicalSound;
+        } catch (SecurityException e) {
             return Settings.System.DEFAULT_NOTIFICATION_URI;
         }
-        return canonicalSound;
     }
 
     /**
