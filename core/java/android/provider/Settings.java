@@ -6816,6 +6816,17 @@ public final class Settings {
         public static final String VOLUME_PANEL_HAPTIC_FEEDBACK = "volume_panel_haptic_feedback";
 
         /**
+         * Default settings for notification channel torch blinking
+         * Possible values:
+         * null = disabled
+         * 1 = flash default pattern
+         * array of {int times, int frequency in Hz} formatted: "int,int"
+         * @hide
+         */
+        @Readable
+        public static final String DEFAULT_NOTIFICATION_TORCH = "default_notification_torch";
+
+        /**
          * Keys we no longer back up under the current schema, but want to continue to
          * process when restoring historical backup datasets.
          *
