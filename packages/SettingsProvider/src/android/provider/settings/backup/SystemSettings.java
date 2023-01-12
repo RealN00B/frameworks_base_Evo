@@ -113,8 +113,6 @@ public class SystemSettings {
         Settings.System.BLOCK_ALERT,
         Settings.System.SENSOR_BLOCK,
         Settings.System.ENABLE_FLOATING_ROTATION_BUTTON,
-        Settings.System.VOLUME_BUTTON_QUICK_MUTE,
-        Settings.System.VOLUME_BUTTON_QUICK_MUTE_DELAY,
         Settings.System.RINGTONE_VIBRATION_PATTERN,
         Settings.System.CUSTOM_RINGTONE_VIBRATION_PATTERN,
         Settings.System.BATTERY_LEVEL_COLORS,
