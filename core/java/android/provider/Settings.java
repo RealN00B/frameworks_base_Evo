@@ -6717,6 +6717,12 @@ public final class Settings {
          * @hide
          */
         public static final String VOLUME_DIALOG_TIMEOUT = "volume_dialog_timeout";
+        
+        /**
+          * Frame rate recorder
+          * @hide
+          */
+        public static final String FRAME_RATE_RECORDER = "frame_rate_recorder";
 
         /**
          * Change volume up and down handlign based on rotation
@@ -7152,6 +7158,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(BUTTON_BACKLIGHT_ONLY_WHEN_PRESSED);
             PRIVATE_SETTINGS.add(BACK_GESTURE_HAPTIC);
             PRIVATE_SETTINGS.add(BATTERY_LEVEL_COLORS);
+            PRIVATE_SETTINGS.add(FRAME_RATE_RECORDER);
         }
 
         /**
