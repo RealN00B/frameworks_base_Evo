@@ -52,6 +52,7 @@ import android.os.UserHandle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.widget.FrameLayout;
 
@@ -331,6 +332,8 @@ public class PulseControllerImpl implements
         if (parent == null) return;
         View v = parent.findViewWithTag(PulseView.TAG);
         if (v == null) {
+            if(mPulseView.getParent() != null)
+            ((ViewGroup)mPulseView.getParent()).removeView(mPulseView);
             parent.addView(mPulseView);
             mAttached = true;
             log("attachPulseTo() ");
