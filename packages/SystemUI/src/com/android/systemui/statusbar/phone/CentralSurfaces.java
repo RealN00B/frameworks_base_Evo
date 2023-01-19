@@ -48,6 +48,7 @@ import com.android.systemui.animation.RemoteTransitionAdapter;
 import com.android.systemui.navigationbar.NavigationBarView;
 import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.plugins.statusbar.NotificationSwipeActionHelper;
+import com.android.systemui.pulse.PulseControllerImpl;
 import com.android.systemui.qs.QSPanelController;
 import com.android.systemui.shade.NotificationPanelViewController;
 import com.android.systemui.shade.NotificationShadeWindowView;
@@ -207,6 +208,8 @@ public interface CentralSurfaces extends Dumpable, ActivityStarter, LifecycleOwn
     boolean updateIsKeyguard();
 
     boolean updateIsKeyguard(boolean forceStateChange);
+
+    PulseControllerImpl getPulseController();
 
     @NonNull
     @Override

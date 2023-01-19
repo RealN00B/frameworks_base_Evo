@@ -230,6 +230,7 @@ import com.android.systemui.statusbar.policy.OnHeadsUpChangedListener;
 import com.android.systemui.statusbar.window.StatusBarWindowStateController;
 import com.android.systemui.tuner.TunerService;
 import com.android.systemui.unfold.SysUIUnfoldComponent;
+import com.android.systemui.pulse.Renderer;
 import com.android.systemui.util.Compile;
 import com.android.systemui.util.LargeScreenUtils;
 import com.android.systemui.util.ListenerSet;
@@ -3347,6 +3348,7 @@ public final class NotificationPanelViewController extends PanelViewController {
         mNotificationStackScrollLayoutController.setAlpha(alpha);
         if (mBarState != StatusBarState.KEYGUARD && !isFullyCollapsed() || !isPanelVisibleBecauseOfHeadsUp()) {
             mCentralSurfaces.updateDismissAllVisibility(true);
+            mCentralSurfaces.getPulseController().setQSShowing(mBarState != StatusBarState.KEYGUARD && !isFullyCollapsed());
         }
     }
 

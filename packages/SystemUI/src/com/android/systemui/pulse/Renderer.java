@@ -85,4 +85,6 @@ public abstract class Renderer implements VisualizerStreamHandler.Listener {
         mKeyguardShowing = showing;
         onSizeChanged(0, 0, 0, 0);
     }
+
+    public void setQSShowing(boolean showing) {}
 }

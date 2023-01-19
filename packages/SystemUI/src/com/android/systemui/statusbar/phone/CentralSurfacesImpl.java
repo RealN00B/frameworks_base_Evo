@@ -193,6 +193,7 @@ import com.android.systemui.plugins.statusbar.NotificationSwipeActionHelper.Snoo
 import com.android.systemui.plugins.statusbar.StatusBarStateController;
 import com.android.systemui.pulse.PulseControllerImpl;
 import com.android.systemui.pulse.VisualizerView;
+import com.android.systemui.pulse.Renderer;
 import com.android.systemui.qs.QSFragment;
 import com.android.systemui.qs.QSPanelController;
 import com.android.systemui.recents.ScreenPinningRequest;
@@ -557,7 +558,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
     protected GameSpaceManager mGameSpaceManager;
     protected TaskHelper mTaskHelper;
 
-    private final PulseControllerImpl mPulseController;
+    private PulseControllerImpl mPulseController;
 
     // expanded notifications
     // the sliding/resizing panel within the notification window
@@ -3373,6 +3374,7 @@ public class CentralSurfacesImpl extends CoreStartable implements
         }
         updatePanelExpansionForKeyguard();
         Trace.endSection();
+        mNotificationPanelViewController.updateNotificationTranslucency();
     }
 
     private void updatePanelExpansionForKeyguard() {
@@ -3380,6 +3382,10 @@ public class CentralSurfacesImpl extends CoreStartable implements
                 != BiometricUnlockController.MODE_WAKE_AND_UNLOCK && !mBouncerShowing) {
             mShadeController.instantExpandNotificationsPanel();
         }
+    }
+
+    public PulseControllerImpl getPulseController() {
+        return mPulseController;
     }
 
     private void onLaunchTransitionFadingEnded() {
