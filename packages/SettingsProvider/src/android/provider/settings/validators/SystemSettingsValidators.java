@@ -326,7 +326,8 @@ public class SystemSettingsValidators {
                             "wallet",
                             "qr",
                             "camera",
-                            "flashlight"
+                            "flashlight",
+                            "remote"
                         );
                         final String[] split = value.split(";");
                         if (split.length != 2) return false;
