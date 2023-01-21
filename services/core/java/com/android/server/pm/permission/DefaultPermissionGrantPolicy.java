@@ -905,6 +905,9 @@ final class DefaultPermissionGrantPolicy {
         // Updater app
         grantSystemFixedPermissionsToSystemPackage(pm, "org.evolution.ota", userId, NOTIFICATION_PERMISSIONS);
 
+        // Pixel Live Wallpapers
+        grantSystemFixedPermissionsToSystemPackage(pm,"com.google.pixel.livewallpaper", userId, ALWAYS_LOCATION_PERMISSIONS);
+
         // There is no real "marker" interface to identify the shared storage backup, it is
         // hardcoded in BackupManagerService.SHARED_BACKUP_AGENT_PACKAGE.
         grantSystemFixedPermissionsToSystemPackage(pm, "com.android.sharedstoragebackup", userId,
