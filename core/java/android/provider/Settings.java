@@ -6919,6 +6919,12 @@ public final class Settings {
          * @hide
          */
         public static final String QS_TILE_LABEL_HIDE = "qs_tile_label_hide";
+        
+        /**
+         * Whether to display 5G icon instead LTE
+         * @hide
+         */
+        public static final String SHOW_FIVEG_ICON = "show_fiveg_icon";
 
         /**
          * @hide

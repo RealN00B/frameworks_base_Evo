@@ -120,6 +120,8 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
             "system:" + Settings.System.ROAMING_INDICATOR_ICON;
     private static final String SHOW_FOURG_ICON =
             "system:" + Settings.System.SHOW_FOURG_ICON;
+    private static final String SHOW_FIVEG_ICON =
+            "system:" + Settings.System.SHOW_FIVEG_ICON;
     private static final String DATA_DISABLED_ICON =
             "system:" + Settings.System.DATA_DISABLED_ICON;
 
@@ -262,6 +264,7 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
         Dependency.get(TunerService.class).addTunable(this, ROAMING_INDICATOR_ICON);
         Dependency.get(TunerService.class).addTunable(this, SHOW_FOURG_ICON);
         Dependency.get(TunerService.class).addTunable(this, DATA_DISABLED_ICON);
+        Dependency.get(TunerService.class).addTunable(this, SHOW_FIVEG_ICON);
     }
 
     @Override
@@ -273,6 +276,11 @@ public class MobileSignalController extends SignalController<MobileState, Mobile
                 updateTelephony();
                 break;
             case SHOW_FOURG_ICON:
+                mConfig = Config.readConfig(mContext);
+                setConfiguration(mConfig);
+                notifyListeners();
+                break;
+            case SHOW_FIVEG_ICON:
                 mConfig = Config.readConfig(mContext);
                 setConfiguration(mConfig);
                 notifyListeners();
