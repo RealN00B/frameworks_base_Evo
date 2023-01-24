@@ -6931,6 +6931,23 @@ public final class Settings {
          * @hide
          */
         public static final String SHOW_FIVEG_ICON = "show_fiveg_icon";
+        
+        /**
+         * Show ambient icons on lockscreen
+         * @hide
+         */
+        @Readable
+        public static final String AMBIENT_ICONS_LOCKSCREEN = "ambient_icons_lockscreen";
+        /**
+         * Change size of ambient icons on lockscreen
+         * @hide
+         */
+        public static final String AMBIENT_ICONS_SIZE = "ambient_icons_size";
+        /**
+         * Change color of ambient icons on lockscreen
+         * @hide
+         */
+        public static final String AMBIENT_ICONS_COLOR = "ambient_icons_color";
 
         /**
          * @hide
