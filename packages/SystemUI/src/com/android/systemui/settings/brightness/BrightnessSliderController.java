@@ -18,7 +18,7 @@ package com.android.systemui.settings.brightness;
 
 import android.content.Context;
 import android.provider.Settings;
-import static android.view.HapticFeedbackConstants.CLOCK_TICK;
+import static android.view.HapticFeedbackConstants.LONG_PRESS_POWER_BUTTON;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -215,7 +215,7 @@ public class BrightnessSliderController extends ViewController<BrightnessSliderV
             final boolean doVibrate = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.BRIGHTNESS_SLIDER_HAPTIC_FEEDBACK, 1) != 0;
             if (doVibrate) {
-            seekBar.performHapticFeedback(CLOCK_TICK);
+            seekBar.performHapticFeedback(LONG_PRESS_POWER_BUTTON);
             }
         }
 

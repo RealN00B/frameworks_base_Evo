@@ -82,7 +82,7 @@ import android.os.SystemClock;
 import android.os.Trace;
 import android.os.VibrationEffect;
 import android.os.UserHandle;
-import static android.view.HapticFeedbackConstants.CLOCK_TICK;
+import static android.view.HapticFeedbackConstants.LONG_PRESS_POWER_BUTTON;
 import android.provider.Settings;
 import android.provider.Settings.Global;
 import android.text.InputFilter;
@@ -2739,7 +2739,7 @@ public class VolumeDialogImpl implements VolumeDialog,
             final boolean doVibrate = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.VOLUME_PANEL_HAPTIC_FEEDBACK, 1) != 0;
             if (doVibrate) {
-            seekBar.performHapticFeedback(CLOCK_TICK);
+            seekBar.performHapticFeedback(LONG_PRESS_POWER_BUTTON);
             }
         }
 
