@@ -90,6 +90,8 @@ LOCAL_REQUIRED_MODULES := \
     IconShapeTeardropOverlay \
     IconShapeVesselOverlay \
     RohieIconMeowOverlay \
+    DefaultButSquareOverlay \
+    RiceBallsOverlay \
     NavigationBarMode3ButtonOverlay \
     NavigationBarModeGesturalOverlay \
     NavigationBarModeGesturalOverlayNarrowBack \
