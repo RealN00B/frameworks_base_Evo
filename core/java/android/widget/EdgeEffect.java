@@ -26,7 +26,6 @@ import android.compat.annotation.ChangeId;
 import android.compat.annotation.EnabledSince;
 import android.compat.annotation.UnsupportedAppUsage;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.content.res.TypedArray;
 import android.graphics.BlendMode;
 import android.graphics.Canvas;
@@ -36,9 +35,6 @@ import android.graphics.RecordingCanvas;
 import android.graphics.Rect;
 import android.graphics.RenderNode;
 import android.os.Build;
-import android.os.Vibrator;
-import android.os.VibrationEffect;
-import android.provider.Settings;
 import android.util.AttributeSet;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -222,12 +218,6 @@ public class EdgeEffect {
     private float mDisplacement = 0.5f;
     private float mTargetDisplacement = 0.5f;
 
-    private Vibrator mVibrator;
-    private static final VibrationEffect VIBRATE_CLICK =
-        VibrationEffect.createPredefined(VibrationEffect.EFFECT_TICK);
-    private boolean doVibrate;
-    private boolean mHasVibratePermission;
-
     /**
      * Current edge effect type, consumers should always query
      * {@link #getCurrentEdgeEffectBehavior()} instead of this parameter
@@ -243,13 +233,6 @@ public class EdgeEffect {
      */
     public EdgeEffect(Context context) {
         this(context, null);
-        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-
-        mHasVibratePermission = context.checkCallingOrSelfPermission(
-                    android.Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED;
-
-        doVibrate = Settings.System.getInt(context.getContentResolver(),
-                Settings.System.SCROLL_FLING_HAPTIC_FEEDBACK, 1) != 0;
     }
 
     /**
@@ -270,15 +253,6 @@ public class EdgeEffect {
         mPaint.setColor((themeColor & 0xffffff) | 0x33000000);
         mPaint.setStyle(Paint.Style.FILL);
         mPaint.setBlendMode(DEFAULT_BLEND_MODE);
-
-        mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-
-        mHasVibratePermission = context.checkCallingOrSelfPermission(
-                    android.Manifest.permission.VIBRATE) == PackageManager.PERMISSION_GRANTED;
-
-        doVibrate = Settings.System.getInt(context.getContentResolver(),
-                Settings.System.SCROLL_FLING_HAPTIC_FEEDBACK, 1) != 0;
-
     }
 
     @EdgeEffectType
@@ -523,9 +497,6 @@ public class EdgeEffect {
             mState = STATE_RECEDE;
             mVelocity = velocity * ON_ABSORB_VELOCITY_ADJUSTMENT;
             mStartTime = AnimationUtils.currentAnimationTimeMillis();
-            if (doVibrate && mHasVibratePermission) {
-            mVibrator.vibrate(VIBRATE_CLICK);
-            }
         } else if (edgeEffectBehavior == TYPE_GLOW) {
             mState = STATE_ABSORB;
             mVelocity = 0;
@@ -550,9 +521,6 @@ public class EdgeEffect {
                     mGlowAlphaStart,
                     Math.min(velocity * VELOCITY_GLOW_FACTOR * .00001f, MAX_ALPHA));
             mTargetDisplacement = 0.5f;
-            if (doVibrate && mHasVibratePermission) {
-            mVibrator.vibrate(VIBRATE_CLICK);
-            }
         } else {
             finish();
         }

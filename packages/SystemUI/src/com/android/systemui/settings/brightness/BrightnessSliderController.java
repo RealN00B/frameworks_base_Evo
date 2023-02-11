@@ -17,8 +17,6 @@
 package com.android.systemui.settings.brightness;
 
 import android.content.Context;
-import android.provider.Settings;
-import static android.view.HapticFeedbackConstants.LONG_PRESS_POWER_BUTTON;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,8 +54,6 @@ public class BrightnessSliderController extends ViewController<BrightnessSliderV
     private BrightnessMirrorController mMirrorController;
     private boolean mTracking;
     private final FalsingManager mFalsingManager;
-
-    private Context mContext;
 
     private final Gefingerpoken mOnInterceptListener = new Gefingerpoken() {
         @Override
@@ -210,12 +206,6 @@ public class BrightnessSliderController extends ViewController<BrightnessSliderV
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (mListener != null) {
                 mListener.onChanged(mTracking, progress, false);
-            }
-            mContext = mView.getContext();
-            final boolean doVibrate = Settings.System.getInt(mContext.getContentResolver(),
-                    Settings.System.BRIGHTNESS_SLIDER_HAPTIC_FEEDBACK, 1) != 0;
-            if (doVibrate) {
-            seekBar.performHapticFeedback(LONG_PRESS_POWER_BUTTON);
             }
         }
 
