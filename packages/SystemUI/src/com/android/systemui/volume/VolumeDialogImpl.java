@@ -2734,6 +2734,7 @@ public class VolumeDialogImpl implements VolumeDialog,
                             userLevel);
                 }
             }
+            mController.vibrate(VibrationEffect.get(VibrationEffect.EFFECT_TEXTURE_TICK));
         }
 
         @Override
