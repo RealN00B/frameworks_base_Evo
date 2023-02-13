@@ -65,6 +65,7 @@ void AnimationContext::startFrame(TreeInfo::TraversalMode mode) {
 }
 
 void AnimationContext::runRemainingAnimations(TreeInfo& info) {
+    if (mCurrentFrameAnimations.mNextHandle == nullptr) return;
     while (mCurrentFrameAnimations.mNextHandle) {
         AnimationHandle* current = mCurrentFrameAnimations.mNextHandle;
         AnimatorManager& animators = current->mRenderNode->animators();
