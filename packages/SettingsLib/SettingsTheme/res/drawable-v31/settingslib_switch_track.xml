@@ -22,5 +22,5 @@
     android:height="28dp">
 
     <solid android:color="@color/settingslib_switch_track_color" />
-    <corners android:radius="27dp" />
+    <corners android:radius="35dp" />
 </shape>
