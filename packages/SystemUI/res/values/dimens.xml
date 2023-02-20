@@ -875,8 +875,8 @@
     <dimen name="global_actions_power_dialog_item_width">165dp</dimen>
     <dimen name="global_actions_power_dialog_item_bottom_margin">14dp</dimen>
 
-    <!-- Power Menu Lite -->
-    <dimen name="global_actions_button_size">80dp</dimen>
+    <!-- Power Menu Lite -->   
+    <dimen name="global_actions_button_size">76dp</dimen>
     <dimen name="global_actions_button_padding">24dp</dimen>
     <dimen name="global_actions_corner_radius">28dp</dimen>
     <dimen name="global_actions_lite_padding">24dp</dimen>
