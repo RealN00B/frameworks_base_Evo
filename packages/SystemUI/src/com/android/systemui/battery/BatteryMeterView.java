@@ -60,6 +60,21 @@ import com.android.settingslib.graph.LandscapeBatteryDrawableLine;
 import com.android.settingslib.graph.LandscapeBatteryDrawableSignal;
 import com.android.settingslib.graph.LandscapeBatteryDrawableMusku;
 import com.android.settingslib.graph.LandscapeBatteryDrawablePill;
+import com.android.settingslib.graph.LandscapeBatteryA;
+import com.android.settingslib.graph.LandscapeBatteryB;
+import com.android.settingslib.graph.LandscapeBatteryC;
+import com.android.settingslib.graph.LandscapeBatteryD;
+import com.android.settingslib.graph.LandscapeBatteryE;
+import com.android.settingslib.graph.LandscapeBatteryF;
+import com.android.settingslib.graph.LandscapeBatteryG;
+import com.android.settingslib.graph.LandscapeBatteryH;
+import com.android.settingslib.graph.LandscapeBatteryI;
+import com.android.settingslib.graph.LandscapeBatteryJ;
+import com.android.settingslib.graph.LandscapeBatteryK;
+import com.android.settingslib.graph.LandscapeBatteryL;
+import com.android.settingslib.graph.LandscapeBatteryM;
+import com.android.settingslib.graph.LandscapeBatteryN;
+import com.android.settingslib.graph.LandscapeBatteryO;
 import com.android.systemui.DualToneHandler;
 import com.android.systemui.R;
 import com.android.systemui.animation.Interpolators;
@@ -93,6 +108,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
     private static final int BATTERY_STYLE_LANDSCAPE_STYLE_A = 16;
     private static final int BATTERY_STYLE_RLANDSCAPE_STYLE_B = 17;
     private static final int BATTERY_STYLE_LANDSCAPE_STYLE_B = 18;
+    protected static final int BATTERY_STYLE_LANDSCAPEA = 19;
+    protected static final int BATTERY_STYLE_LANDSCAPEB = 20;
+    protected static final int BATTERY_STYLE_LANDSCAPEC = 21;
+    protected static final int BATTERY_STYLE_LANDSCAPED = 22;
+    protected static final int BATTERY_STYLE_LANDSCAPEE = 23;
+    protected static final int BATTERY_STYLE_LANDSCAPEF = 24;
+    protected static final int BATTERY_STYLE_LANDSCAPEG = 25;
+    protected static final int BATTERY_STYLE_LANDSCAPEH = 26;
+    protected static final int BATTERY_STYLE_LANDSCAPEI = 27;
+    protected static final int BATTERY_STYLE_LANDSCAPEJ = 28;
+    protected static final int BATTERY_STYLE_LANDSCAPEK = 29;
+    protected static final int BATTERY_STYLE_LANDSCAPEL = 30;
+    protected static final int BATTERY_STYLE_LANDSCAPEM = 31;
+    protected static final int BATTERY_STYLE_LANDSCAPEN = 32;
+    protected static final int BATTERY_STYLE_LANDSCAPEO = 33;
 
     @Retention(SOURCE)
     @IntDef({MODE_DEFAULT, MODE_ON, MODE_OFF, MODE_ESTIMATE})
@@ -116,6 +146,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
     private final LandscapeBatteryDrawableMusku mLandscapeDrawableMusku;
     private final LandscapeBatteryDrawablePill mLandscapeDrawablePill;
     private final LandscapeBatteryDrawableSignal mLandscapeDrawableSignal;
+    private final LandscapeBatteryA mLandscapeBatteryA;
+    private final LandscapeBatteryB mLandscapeBatteryB;
+    private final LandscapeBatteryC mLandscapeBatteryC;
+    private final LandscapeBatteryD mLandscapeBatteryD;
+    private final LandscapeBatteryE mLandscapeBatteryE;
+    private final LandscapeBatteryF mLandscapeBatteryF;
+    private final LandscapeBatteryG mLandscapeBatteryG;
+    private final LandscapeBatteryH mLandscapeBatteryH;
+    private final LandscapeBatteryI mLandscapeBatteryI;
+    private final LandscapeBatteryJ mLandscapeBatteryJ;
+    private final LandscapeBatteryK mLandscapeBatteryK;
+    private final LandscapeBatteryL mLandscapeBatteryL;
+    private final LandscapeBatteryM mLandscapeBatteryM;
+    private final LandscapeBatteryN mLandscapeBatteryN;
+    private final LandscapeBatteryO mLandscapeBatteryO;
     private final ImageView mBatteryIconView;
     private TextView mBatteryPercentView;
 
@@ -175,6 +220,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
         mLandscapeDrawableMusku = new LandscapeBatteryDrawableMusku(context, frameColor);
         mLandscapeDrawablePill = new LandscapeBatteryDrawablePill(context, frameColor);
         mLandscapeDrawableSignal = new LandscapeBatteryDrawableSignal(context, frameColor);
+        mLandscapeBatteryA = new LandscapeBatteryA(context, frameColor);
+        mLandscapeBatteryB = new LandscapeBatteryB(context, frameColor);
+        mLandscapeBatteryC = new LandscapeBatteryC(context, frameColor);
+        mLandscapeBatteryD = new LandscapeBatteryD(context, frameColor);
+        mLandscapeBatteryE = new LandscapeBatteryE(context, frameColor);
+        mLandscapeBatteryF = new LandscapeBatteryF(context, frameColor);
+        mLandscapeBatteryG = new LandscapeBatteryG(context, frameColor);
+        mLandscapeBatteryH = new LandscapeBatteryH(context, frameColor);
+        mLandscapeBatteryI = new LandscapeBatteryI(context, frameColor);
+        mLandscapeBatteryJ = new LandscapeBatteryJ(context, frameColor);
+        mLandscapeBatteryK = new LandscapeBatteryK(context, frameColor);
+        mLandscapeBatteryL = new LandscapeBatteryL(context, frameColor);
+        mLandscapeBatteryM = new LandscapeBatteryM(context, frameColor);
+        mLandscapeBatteryN = new LandscapeBatteryN(context, frameColor);
+        mLandscapeBatteryO = new LandscapeBatteryO(context, frameColor);
         atts.recycle();
 
         setupLayoutTransition();
@@ -332,6 +392,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
             mLandscapeDrawableMusku.setBatteryLevel(mLevel);
             mLandscapeDrawablePill.setBatteryLevel(mLevel);
             mLandscapeDrawableSignal.setBatteryLevel(mLevel);
+            mLandscapeBatteryA.setBatteryLevel(level);
+            mLandscapeBatteryB.setBatteryLevel(level);
+            mLandscapeBatteryC.setBatteryLevel(level);
+            mLandscapeBatteryD.setBatteryLevel(level);
+            mLandscapeBatteryE.setBatteryLevel(level);
+            mLandscapeBatteryF.setBatteryLevel(level);
+            mLandscapeBatteryG.setBatteryLevel(level);
+            mLandscapeBatteryH.setBatteryLevel(level);
+            mLandscapeBatteryI.setBatteryLevel(level);
+            mLandscapeBatteryJ.setBatteryLevel(level);
+            mLandscapeBatteryK.setBatteryLevel(level);
+            mLandscapeBatteryL.setBatteryLevel(level);
+            mLandscapeBatteryM.setBatteryLevel(level);
+            mLandscapeBatteryN.setBatteryLevel(level);
+            mLandscapeBatteryO.setBatteryLevel(level);
             updatePercentText();
         }
         if (mCharging != pluggedIn) {
@@ -350,6 +425,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
             mLandscapeDrawableMusku.setCharging(mCharging);
             mLandscapeDrawablePill.setCharging(mCharging);
             mLandscapeDrawableSignal.setCharging(mCharging);
+            mLandscapeBatteryA.setCharging(pluggedIn);
+            mLandscapeBatteryB.setCharging(pluggedIn);
+            mLandscapeBatteryC.setCharging(pluggedIn);
+            mLandscapeBatteryD.setCharging(pluggedIn);
+            mLandscapeBatteryE.setCharging(pluggedIn);
+            mLandscapeBatteryF.setCharging(pluggedIn);
+            mLandscapeBatteryG.setCharging(pluggedIn);
+            mLandscapeBatteryH.setCharging(pluggedIn);
+            mLandscapeBatteryI.setCharging(pluggedIn);
+            mLandscapeBatteryJ.setCharging(pluggedIn);
+            mLandscapeBatteryK.setCharging(pluggedIn);
+            mLandscapeBatteryL.setCharging(pluggedIn);
+            mLandscapeBatteryM.setCharging(pluggedIn);
+            mLandscapeBatteryN.setCharging(pluggedIn);
+            mLandscapeBatteryO.setCharging(pluggedIn);
             updateShowPercent();
             updatePercentText();
         }
@@ -370,6 +460,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
         mLandscapeDrawableMusku.setPowerSaveEnabled(isPowerSave);
         mLandscapeDrawablePill.setPowerSaveEnabled(isPowerSave);
         mLandscapeDrawableSignal.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryA.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryB.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryC.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryD.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryE.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryF.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryG.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryH.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryI.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryJ.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryK.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryL.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryM.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryN.setPowerSaveEnabled(isPowerSave);
+        mLandscapeBatteryO.setPowerSaveEnabled(isPowerSave);
     }
 
     private TextView loadPercentView() {
@@ -478,6 +583,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
         mLandscapeDrawableMusku.setShowPercent(drawPercentInside);
         mLandscapeDrawablePill.setShowPercent(drawPercentInside);
         mLandscapeDrawableSignal.setShowPercent(drawPercentInside);
+        mLandscapeBatteryA.setShowPercent(drawPercentInside);
+        mLandscapeBatteryB.setShowPercent(drawPercentInside);
+        mLandscapeBatteryC.setShowPercent(drawPercentInside);
+        mLandscapeBatteryD.setShowPercent(drawPercentInside);
+        mLandscapeBatteryE.setShowPercent(drawPercentInside);
+        mLandscapeBatteryF.setShowPercent(drawPercentInside);
+        mLandscapeBatteryG.setShowPercent(drawPercentInside);
+        mLandscapeBatteryH.setShowPercent(drawPercentInside);
+        mLandscapeBatteryI.setShowPercent(drawPercentInside);
+        mLandscapeBatteryJ.setShowPercent(drawPercentInside);
+        mLandscapeBatteryK.setShowPercent(drawPercentInside);
+        mLandscapeBatteryL.setShowPercent(drawPercentInside);
+        mLandscapeBatteryM.setShowPercent(drawPercentInside);
+        mLandscapeBatteryN.setShowPercent(drawPercentInside);
+        mLandscapeBatteryO.setShowPercent(drawPercentInside);
 
         if (showPercent || (mBatteryPercentCharging && mCharging)
                 || mShowBatteryEstimate != 0) {
@@ -564,7 +684,7 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
                 res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_height);
         batteryHeight = mBatteryStyle == BATTERY_STYLE_BIG_CIRCLE || mBatteryStyle == BATTERY_STYLE_BIG_DOTTED_CIRCLE ?
                 res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_big_circle_height) : batteryHeight;
-        batteryHeight = mBatteryStyle == BATTERY_STYLE_LANDSCAPE || mBatteryStyle == BATTERY_STYLE_RLANDSCAPE || mBatteryStyle == BATTERY_STYLE_RLANDSCAPE_STYLE_A || mBatteryStyle == BATTERY_STYLE_LANDSCAPE_STYLE_A || mBatteryStyle == BATTERY_STYLE_RLANDSCAPE_STYLE_B || mBatteryStyle == BATTERY_STYLE_LANDSCAPE_STYLE_B ?
+        batteryHeight = mBatteryStyle == BATTERY_STYLE_LANDSCAPE || mBatteryStyle == BATTERY_STYLE_RLANDSCAPE || mBatteryStyle == BATTERY_STYLE_RLANDSCAPE_STYLE_A || mBatteryStyle == BATTERY_STYLE_LANDSCAPE_STYLE_A || mBatteryStyle == BATTERY_STYLE_RLANDSCAPE_STYLE_B || mBatteryStyle == BATTERY_STYLE_LANDSCAPE_STYLE_B?
                 res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_height_landscape) : batteryHeight;
         batteryHeight = mBatteryStyle == BATTERY_STYLE_LANDSCAPE_SIGNAL ?
                 res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_height_landscape_signal) : batteryHeight;
@@ -574,6 +694,23 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
                 res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_height_landscape_pill_musku) : batteryHeight;
         batteryHeight = mBatteryStyle == BATTERY_STYLE_LANDSCAPE_BUDDY ?
                 res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_height_landscape_buddy) : batteryHeight;
+        batteryHeight = mBatteryStyle == BATTERY_STYLE_LANDSCAPEA ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEB ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEC ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPED ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEE ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEF ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEG ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEH ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEI ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEJ ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEK ||
+               		mBatteryStyle == BATTERY_STYLE_LANDSCAPEL ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEM ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEN ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEO ?
+        res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_height_landscape_a_o) : batteryHeight;        	
+                
         int batteryWidth = mBatteryStyle == BATTERY_STYLE_CIRCLE || mBatteryStyle == BATTERY_STYLE_DOTTED_CIRCLE
                 || mBatteryStyle == BATTERY_STYLE_FULL_CIRCLE ?
                 res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_circle_width) :
@@ -590,6 +727,22 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
                res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_width_landscape_pill_musku) : batteryWidth;
         batteryWidth = mBatteryStyle == BATTERY_STYLE_LANDSCAPE_BUDDY ?
                res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_width_landscape_buddy) : batteryWidth;
+         batteryWidth = mBatteryStyle == BATTERY_STYLE_LANDSCAPEA ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEB ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEC ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPED ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEE ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEF ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEG ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEH ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEI ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEJ ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEK ||
+               		mBatteryStyle == BATTERY_STYLE_LANDSCAPEL ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEM ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEN ||
+                	mBatteryStyle == BATTERY_STYLE_LANDSCAPEO ?
+        res.getDimensionPixelSize(R.dimen.status_bar_battery_icon_width_landscape_a_o) : batteryWidth;
         int marginBottom = res.getDimensionPixelSize(R.dimen.battery_margin_bottom);
 
         LinearLayout.LayoutParams scaledLayoutParams = new LinearLayout.LayoutParams(
@@ -666,7 +819,62 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
                  mBatteryIconView.setImageDrawable(mLandscapeDrawableSignal);
                  mBatteryIconView.setVisibility(View.VISIBLE);
                  scaleBatteryMeterViews();
-                 break;   
+                 break;
+            case BATTERY_STYLE_LANDSCAPEA:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryA);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEB:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryB);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEC:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryC);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPED:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryD);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEE:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryE);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEF:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryF);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEG:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryG);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEH:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryH);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEI:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryI);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEJ:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryJ);
+                mBatteryIconView.setVisibility(View.VISIBLE);
+                break;
+            case BATTERY_STYLE_LANDSCAPEK:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryK);
+                break;
+            case BATTERY_STYLE_LANDSCAPEL:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryL);
+                break;
+            case BATTERY_STYLE_LANDSCAPEM:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryM);
+                break;
+            case BATTERY_STYLE_LANDSCAPEN:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryN);
+                break;
+            case BATTERY_STYLE_LANDSCAPEO:
+                mBatteryIconView.setImageDrawable(mLandscapeBatteryO);
+                break;   
             case BATTERY_STYLE_HIDDEN:
             case BATTERY_STYLE_TEXT:
                 return;
@@ -717,6 +925,21 @@ public class BatteryMeterView extends LinearLayout implements DarkReceiver {
         mLandscapeDrawableMusku.setColors(foregroundColor, backgroundColor, singleToneColor);
         mLandscapeDrawablePill.setColors(foregroundColor, backgroundColor, singleToneColor);
         mLandscapeDrawableSignal.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryA.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryB.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryC.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryD.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryE.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryF.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryG.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryH.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryI.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryJ.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryK.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryL.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryM.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryN.setColors(foregroundColor, backgroundColor, singleToneColor);
+        mLandscapeBatteryO.setColors(foregroundColor, backgroundColor, singleToneColor);
         mTextColor = singleToneColor;
         if (mBatteryPercentView != null) {
             mBatteryPercentView.setTextColor(singleToneColor);
