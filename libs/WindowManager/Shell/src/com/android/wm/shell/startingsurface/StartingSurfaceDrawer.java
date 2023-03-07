@@ -378,8 +378,10 @@ public class StartingSurfaceDrawer {
                                     final int lightBarAppearance = ContrastColorUtil.isColorLight(
                                             contentView.getInitBackgroundColor())
                                             ? LIGHT_BARS_MASK : 0;
-                                    contentView.getWindowInsetsController().setSystemBarsAppearance(
-                                            lightBarAppearance, LIGHT_BARS_MASK);
+                                    final WindowInsetsController wic = contentView.getWindowInsetsController();
+                                    if (wic != null) {
+                                        wic.setSystemBarsAppearance(lightBarAppearance, LIGHT_BARS_MASK);
+                                    }
                                 }
 
                                 @Override
@@ -637,21 +639,25 @@ public class StartingSurfaceDrawer {
                 ProtoLog.v(ShellProtoLogGroup.WM_SHELL_STARTING_WINDOW,
                         "Removing splash screen window for task: %d", taskId);
                 if (record.mContentView != null) {
-                    record.clearSystemBarColor();
-                    if (immediately
-                            || record.mSuggestType == STARTING_WINDOW_TYPE_LEGACY_SPLASH_SCREEN) {
-                        removeWindowInner(record.mDecorView, false);
-                    } else {
-                        if (removalInfo.playRevealAnimation) {
-                            mSplashscreenContentDrawer.applyExitAnimation(record.mContentView,
-                                    removalInfo.windowAnimationLeash, removalInfo.mainFrame,
-                                    () -> removeWindowInner(record.mDecorView, true),
-                                    record.mCreateTime);
+                    if (record.clearSystemBarColor()) {
+                        if (immediately
+                                || record.mSuggestType == STARTING_WINDOW_TYPE_LEGACY_SPLASH_SCREEN) {
+                            removeWindowInner(record.mDecorView, false);
                         } else {
-                            // the SplashScreenView has been copied to client, hide the view to skip
-                            // default exit animation
-                            removeWindowInner(record.mDecorView, true);
+                            if (removalInfo.playRevealAnimation) {
+                                mSplashscreenContentDrawer.applyExitAnimation(record.mContentView,
+                                        removalInfo.windowAnimationLeash, removalInfo.mainFrame,
+                                        () -> removeWindowInner(record.mDecorView, true),
+                                        record.mCreateTime);
+                            } else {
+                                // the SplashScreenView has been copied to client, hide the view to skip
+                                // default exit animation
+                                removeWindowInner(record.mDecorView, true);
+                            }
                         }
+                    } else {
+                        // shouldn't happen
+                        Slog.e(TAG, "removing non existant window?");
                     }
                 } else {
                     // shouldn't happen
@@ -732,9 +738,9 @@ public class StartingSurfaceDrawer {
         }
 
         // Reset the system bar color which set by splash screen, make it align to the app.
-        private void clearSystemBarColor() {
-            if (mDecorView == null || !mDecorView.isAttachedToWindow()) {
-                return;
+        private boolean clearSystemBarColor() {
+            if (mDecorView == null) {
+                return false;
             }
             if (mDecorView.getLayoutParams() instanceof WindowManager.LayoutParams) {
                 final WindowManager.LayoutParams lp =
@@ -746,8 +752,12 @@ public class StartingSurfaceDrawer {
                 }
                 mDecorView.setLayoutParams(lp);
             }
-            mDecorView.getWindowInsetsController().setSystemBarsAppearance(
-                    mSystemBarAppearance, LIGHT_BARS_MASK);
+            final WindowInsetsController wic = mDecorView.getWindowInsetsController();
+            if (wic != null) {
+                wic.setSystemBarsAppearance(mSystemBarAppearance, LIGHT_BARS_MASK);
+                return true;
+            }
+            return false;
         }
     }
 }
