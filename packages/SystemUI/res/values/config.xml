@@ -283,7 +283,7 @@
     <bool name="enable_safety_warning">true</bool>
 
     <!-- Whether to show the full screen user switcher. -->
-    <bool name="config_enableFullscreenUserSwitcher">false</bool>
+    <bool name="config_enableFullscreenUserSwitcher">true</bool>
 
     <!-- SystemUIFactory component -->
     <string name="config_systemUIFactoryComponent" translatable="false">com.android.systemui.SystemUIInitializerImpl</string>
