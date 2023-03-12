@@ -15,19 +15,30 @@
  * limitations under the License.
  */
 package com.android.settingslib.graph
-
 import android.content.Context
+import android.graphics.BlendMode
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.LinearGradient
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Path
+import android.graphics.PixelFormat
+import android.graphics.Rect
+import android.graphics.RectF
+import android.graphics.Shader
+import android.graphics.Typeface
+import android.graphics.drawable.Drawable
+import android.util.PathParser
+import android.util.TypedValue
+
 import android.content.res.Resources
 import android.graphics.*
-import android.graphics.drawable.Drawable
-import android.util.TypedValue
 import com.android.settingslib.R
 import com.android.settingslib.Utils
 import kotlin.math.max
 import kotlin.math.min
-
-import android.provider.Settings.System;
-import android.os.UserHandle;
 
 class CircleBatteryDrawable(private val context: Context, frameColor: Int) : Drawable() {
     private val criticalLevel: Int
@@ -43,9 +54,21 @@ class CircleBatteryDrawable(private val context: Context, frameColor: Int) : Dra
     private val boltPoints: FloatArray
     private val boltPath = Path()
     private val padding = Rect()
+    private val levelRect = RectF()
     private val frame = RectF()
     private val boltFrame = RectF()
-    private val pathEffect = DashPathEffect(floatArrayOf(3f,2f),0f)
+    private val chargingPaint: Paint
+
+    private val customFillPaint: Paint
+    private val powerSaveFillPaint: Paint
+
+    private val scaledFillPaint: Paint
+
+    private val scaledPerimeterPaint: Paint
+
+    private val scaledPerimeterPaintDef: Paint
+    
+    private val BLACK = Color.BLACK
 
     private var chargeColor: Int
     private var iconTint = Color.WHITE
@@ -54,9 +77,16 @@ class CircleBatteryDrawable(private val context: Context, frameColor: Int) : Dra
     private var height = 0
     private var width = 0
 
-    private var BATTERY_STYLE_CIRCLE = 1
-    private var BATTERY_STYLE_DOTTED_CIRCLE = 2
-    private var BATTERY_STYLE_BIG_DOTTED_CIRCLE = 9
+    private var isRotation = false
+    private var scaledFillAlpha = false
+    private var scaledPerimeterAlpha = false
+    private var customBlendColor = false
+
+    private var chargingColor: Int = Color.TRANSPARENT
+    private var customFillColor: Int = Color.BLACK
+    private var customFillGradColor: Int = Color.BLACK
+    private var powerSaveColor: Int = Color.TRANSPARENT
+    private var powerSaveFillColor: Int = Color.TRANSPARENT
 
     // Dual tone implies that battery level is a clipped overlay over top of the whole shape
     private var dualTone = false
@@ -88,12 +118,25 @@ class CircleBatteryDrawable(private val context: Context, frameColor: Int) : Dra
             field = value
             postInvalidate()
         }
-
-    var meterStyle = BATTERY_STYLE_CIRCLE
-        set(value) {
-            field = value
-            postInvalidate()
-        }
+        
+    public open fun customizeBatteryDrawable(
+        isRotation: Boolean,
+        scaledPerimeterAlpha: Boolean,
+        scaledFillAlpha: Boolean,
+        customBlendColor: Boolean,
+        customFillColor: Int,
+        customFillGradColor: Int,
+        chargingColor: Int,
+        powerSaveFillColor: Int) {
+        this.isRotation = isRotation
+        this.scaledPerimeterAlpha = scaledPerimeterAlpha
+        this.scaledFillAlpha = scaledFillAlpha
+        this.customBlendColor = customBlendColor
+        this.customFillColor = customFillColor
+        this.customFillGradColor = customFillGradColor
+        this.chargingColor = chargingColor
+        this.powerSaveFillColor = powerSaveFillColor
+    }
 
     // an approximation of View.postInvalidate()
     private fun postInvalidate() {
@@ -148,16 +191,23 @@ class CircleBatteryDrawable(private val context: Context, frameColor: Int) : Dra
     }
 
     private fun batteryColorForLevel(level: Int) =
-        if (charging || powerSaveEnabled)
-            chargeColor
+        if (charging || powerSaveEnabled) 
+           //if (customBlendColor && chargingColor == BLACK)
+               chargeColor 
+           //else 
+               //chargingColor
         else
-            getColorForLevel(level)
+           //if (customBlendColor && customFillColor == BLACK)
+               getColorForLevel(level) 
+           //else 
+               //customFillPaint
 
     fun setColors(fgColor: Int, bgColor: Int, singleToneColor: Int) {
         val fillColor = if (dualTone) fgColor else singleToneColor
 
         iconTint = fillColor
         framePaint.color = bgColor
+        boltPaint.color = fillColor
         chargeColor = fillColor
 
         invalidateSelf()
@@ -171,14 +221,6 @@ class CircleBatteryDrawable(private val context: Context, frameColor: Int) : Dra
         framePaint.style = Paint.Style.STROKE
         batteryPaint.strokeWidth = strokeWidth
         batteryPaint.style = Paint.Style.STROKE
-        if (meterStyle == BATTERY_STYLE_DOTTED_CIRCLE ||
-               meterStyle == BATTERY_STYLE_BIG_DOTTED_CIRCLE) {
-            batteryPaint.pathEffect = pathEffect
-            powerSavePaint.pathEffect = pathEffect
-        } else {
-            batteryPaint.pathEffect = null
-            powerSavePaint.pathEffect = null
-        }
         powerSavePaint.strokeWidth = strokeWidth
         frame[
                 strokeWidth / 2.0f + padding.left, strokeWidth / 2.0f,
@@ -284,38 +326,19 @@ class CircleBatteryDrawable(private val context: Context, frameColor: Int) : Dra
     }
 
     init {
-        val setCustomBatteryLevelTint = System.getIntForUser(
-            context.getContentResolver(),
-            System.BATTERY_LEVEL_COLORS, 0, UserHandle.USER_CURRENT
-        ) === 1
-
         val res = context.resources
-        val color_levels = if(setCustomBatteryLevelTint)
-            res.obtainTypedArray(R.array.spark_batterymeter_color_levels)
-        else
-            res.obtainTypedArray(R.array.batterymeter_color_levels)
-        
-        val color_values = if(setCustomBatteryLevelTint) 
-            res.obtainTypedArray(R.array.spark_batterymeter_color_values)
-        else
-            res.obtainTypedArray(R.array.batterymeter_color_values)
-
-        val L:Int
-        L = if(setCustomBatteryLevelTint)
-            7
-            else
-            2
-            
-        colors = IntArray(L * color_levels.length())
+        val color_levels = res.obtainTypedArray(R.array.batterymeter_color_levels)
+        val color_values = res.obtainTypedArray(R.array.batterymeter_color_values)
+        colors = IntArray(2 * color_levels.length())
         for (i in 0 until color_levels.length()) {
-            colors[L * i] = color_levels.getInt(i, 0)
+            colors[2 * i] = color_levels.getInt(i, 0)
             if (color_values.getType(i) == TypedValue.TYPE_ATTRIBUTE) {
-                colors[L * i + 1] = Utils.getColorAttrDefaultColor(
+                colors[2 * i + 1] = Utils.getColorAttrDefaultColor(
                     context,
                     color_values.getThemeAttributeId(i, 0)
                 )
             } else {
-                colors[L * i + 1] = color_values.getColor(i, 0)
+                colors[2 * i + 1] = color_values.getColor(i, 0)
             }
         }
         color_levels.recycle()
@@ -324,6 +347,23 @@ class CircleBatteryDrawable(private val context: Context, frameColor: Int) : Dra
         criticalLevel = res.getInteger(
             com.android.internal.R.integer.config_criticalBatteryWarningLevel
         )
+        customFillPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        customFillPaint.color = customFillColor
+        //customFillPaint.shader =
+        //if (customFillColor != BLACK && customFillGradColor != BLACK) LinearGradient(
+        //     levelRect.right, 0f, 0f, levelRect.bottom,
+        //      customFillColor, customFillGradColor,
+        //      Shader.TileMode.CLAMP) else null 
+        chargingPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        chargingPaint.color = frameColor 
+        powerSaveFillPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        powerSaveFillPaint.color = frameColor
+        scaledFillPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        scaledFillPaint.color = frameColor
+        scaledPerimeterPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        scaledPerimeterPaint.color = frameColor
+        scaledPerimeterPaintDef = Paint(Paint.ANTI_ALIAS_FLAG)
+        scaledPerimeterPaintDef.color = frameColor
         framePaint = Paint(Paint.ANTI_ALIAS_FLAG)
         framePaint.color = frameColor
         framePaint.isDither = true

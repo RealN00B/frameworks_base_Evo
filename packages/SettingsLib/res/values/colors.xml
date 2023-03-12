@@ -54,4 +54,5 @@
     <color name="battery_55">#FFD600</color>
     <color name="battery_40">#FFAB00</color>
     <color name="battery_25">#FF6D00</color>
+    <color name="cargingbolt_single_tone">#00000000</color>
 </resources>
