@@ -139,6 +139,9 @@ public class ThemeOverlayApplier implements Dumpable {
     @VisibleForTesting
     static final String OVERLAY_CATEGORY_DATA =
             "android.customization.sb_data";
+    @VisibleForTesting
+    static final String OVERLAY_CATEGORY_SB_HEIGHT =
+            "android.customization.sb_height";
 
     /*
      * All theme customization categories used by the system, in order that they should be applied,
@@ -158,7 +161,8 @@ public class ThemeOverlayApplier implements Dumpable {
             OVERLAY_CATEGORY_ICON_WIFI,
             OVERLAY_CATEGORY_NAVBAR,
             OVERLAY_CATEGORY_LOCK_CLOCK_FONT,
-            OVERLAY_CATEGORY_DATA);
+            OVERLAY_CATEGORY_DATA,
+            OVERLAY_CATEGORY_SB_HEIGHT);
 
     /* Categories that need to be applied to the current user as well as the system user. */
     @VisibleForTesting
@@ -171,7 +175,8 @@ public class ThemeOverlayApplier implements Dumpable {
             OVERLAY_CATEGORY_ICON_SYSUI,
             OVERLAY_CATEGORY_NAVBAR,
             OVERLAY_CATEGORY_LOCK_CLOCK_FONT,
-            OVERLAY_CATEGORY_DATA);
+            OVERLAY_CATEGORY_DATA,
+            OVERLAY_CATEGORY_SB_HEIGHT);
 
     /* Categories for all available custom themes */
     @VisibleForTesting
@@ -228,6 +233,7 @@ public class ThemeOverlayApplier implements Dumpable {
         mCategoryToTargetPackage.put(OVERLAY_CATEGORY_ICON_WIFI, SYSUI_PACKAGE);
         mCategoryToTargetPackage.put(OVERLAY_CATEGORY_NAVBAR, SYSUI_PACKAGE);
         mCategoryToTargetPackage.put(OVERLAY_CATEGORY_DATA, SYSUI_PACKAGE);
+        mCategoryToTargetPackage.put(OVERLAY_CATEGORY_SB_HEIGHT, ANDROID_PACKAGE);
 
         dumpManager.registerDumpable(TAG, this);
     }
