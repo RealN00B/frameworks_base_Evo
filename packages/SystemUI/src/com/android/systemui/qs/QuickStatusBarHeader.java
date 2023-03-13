@@ -21,6 +21,13 @@ import static com.android.systemui.battery.BatteryMeterView.BATTERY_STYLE_DOTTED
 import static com.android.systemui.battery.BatteryMeterView.BATTERY_STYLE_FULL_CIRCLE;
 import static com.android.systemui.battery.BatteryMeterView.BATTERY_STYLE_BIG_CIRCLE;
 import static com.android.systemui.battery.BatteryMeterView.BATTERY_STYLE_BIG_DOTTED_CIRCLE;
+import android.annotation.*;
+import android.content.*;
+import android.graphics.*;
+import android.graphics.drawable.*;
+import android.util.*;
+import android.widget.*;
+import android.view.*;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,6 +35,13 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
+import android.graphics.Path;
+import android.graphics.Point;
+import android.graphics.PointF;
+import android.graphics.PorterDuff.Mode;
+import android.os.Handler;
 import android.net.Uri;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
@@ -37,13 +51,18 @@ import android.provider.Settings;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Pair;
+import android.util.TypedValue;
+import android.view.animation.PathInterpolator;
 import android.view.DisplayCutout;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.Space;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -55,6 +74,7 @@ import com.android.systemui.Dependency;
 import com.android.systemui.R;
 import com.android.systemui.battery.BatteryMeterView;
 import com.android.systemui.plugins.ActivityStarter;
+import com.android.systemui.plugins.ActivityStarter;
 import com.android.systemui.statusbar.phone.StatusBarContentInsetsProvider;
 import com.android.systemui.statusbar.phone.StatusBarIconController;
 import com.android.systemui.statusbar.phone.StatusBarIconController.TintedIconManager;
@@ -65,6 +85,7 @@ import com.android.systemui.util.LargeScreenUtils;
 import com.android.systemui.tuner.TunerService;
 
 import java.util.List;
+import com.evillium.prjct.utils.EvlUtils;
 
 /**
  * View that contains the top-most bits of the QS panel (primarily the status bar with date, time,
@@ -90,6 +111,42 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
             "system:" + Settings.System.QS_SHOW_BATTERY_PERCENT;
     private static final String QS_SHOW_BATTERY_ESTIMATE =
             "system:" + Settings.System.QS_SHOW_BATTERY_ESTIMATE;
+            
+    private static final String ANCIENT_UI_HEADER_HEIGHT =
+            "system:" + "ANCIENT_UI_HEADER_HEIGHT"; 
+    private static final String ANCIENT_UI_HEADER_HEIGHT_LAND =
+            "system:" + "ANCIENT_UI_HEADER_HEIGHT_LAND"; 
+    private static final String ANCIENT_UI_HEADERIMG_STYLE =
+            "system:" + "ANCIENT_UI_HEADERIMG_STYLE"; 
+    private static final String ANCIENT_UI_HEADERIMG_SET =
+            "system:" + "ANCIENT_UI_HEADERIMG_SET";  
+    private static final String ANCIENT_UI_HEADERIMG_SWITCH =
+            "system:" + "ANCIENT_UI_HEADERIMG_SWITCH";
+    private static final String ANCIENT_UI_HEADERIMG_LAND_SWITCH =
+            "system:" + "ANCIENT_UI_HEADERIMG_LAND_SWITCH";    
+    private static final String ANCIENT_UI_HEADERIMG_ANIMATION =
+            "system:" + "ANCIENT_UI_HEADERIMG_ANIMATION";  
+    private static final String ANCIENT_UI_HEADERIMG_TINT =
+            "system:" + "ANCIENT_UI_HEADERIMG_TINT"; 
+    private static final String ANCIENT_UI_HEADERIMG_TINT_CUSTOM =
+            "system:" + "ANCIENT_UI_HEADERIMG_TINT_CUSTOM";      
+    private static final String ANCIENT_UI_HEADERIMG_ALPHA =
+            "system:" + "ANCIENT_UI_HEADERIMG_ALPHA";      
+    private static final String ANCIENT_UI_HEADERIMG_USECUSTOMHEIGHT =
+            "system:" + "ANCIENT_UI_HEADERIMG_USECUSTOMHEIGHT";
+
+    private static final String IMAGE_HEADER_HEIGHTP =
+            "system:" + "IMAGE_HEADER_HEIGHTP"; 
+    private static final String IMAGE_HEADER_HEIGHTL =
+            "system:" + "IMAGE_HEADER_HEIGHTL";      
+    private static final String IMAGE_HEADER_HEIGHTPING =
+            "system:" + "IMAGE_HEADER_HEIGHTPING";      
+    private static final String IMAGE_HEADER_HEIGHTNDU =
+            "system:" + "IMAGE_HEADER_HEIGHTNDU";
+    private static final String IMAGE_HEADER_SCALETYPE =
+            "system:" + "IMAGE_HEADER_SCALETYPE";
+    private static final String IMAGE_HEADER_CLIPOUTLINE =
+            "system:" + "IMAGE_HEADER_CLIPOUTLINE";
 
     private static final boolean DEBUG = true;
 
@@ -106,6 +163,33 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
     @Nullable
     private TouchAnimator mIconsAlphaAnimator;
     private TouchAnimator mIconsAlphaAnimatorFixed;
+    private TouchAnimator mAnciHeaderimgAnimator;
+    
+    //headerimg
+    private boolean mHeaderImageEnabled;
+    private boolean mHeaderImageLandDisabled;
+    private boolean mHeaderImageHeightEnabled;
+    private boolean digawefull;
+    private ImageView mBackgroundImage;
+    private View mStatusBarHeaderMachineLayout;
+    private View mStatusBarHeaderInnerLayout;
+    private int mAncientUIheaderheight;
+    private int mAncientUIheaderheightLand;
+    private int mAncientUIheaderStyle;
+    private int mAncientUIheaderImgStyle;
+    private int mAncientUIheaderAniStyle;
+    private int mAncientUIheaderAlphaStyle; 
+    private int mAncientUIheaderTintStyle;
+    private int mAncientUIheaderTintStyleCustom;
+    private int mColorAccent; 
+    private int mColorTextPrimary; 
+    private int mColorPutihIreng;   
+    private int mColorWindow; 
+
+    private int jembutheight;  
+    private int jembutpanjangheight;  
+    private int jembutpinggir;   
+    private int jembutduwur; 
 
     protected QuickQSPanel mHeaderQsPanel;
     private View mDatePrivacyView;
@@ -215,6 +299,11 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
         mBatteryIcon = findViewById(R.id.batteryIcon);
         mBatteryIcon.setOnClickListener(this);
         mBatteryIcon.setOnLongClickListener(this);
+        
+        mBackgroundImage = findViewById(R.id.qs_header_image_view);
+        mStatusBarHeaderMachineLayout = findViewById(R.id.layout_header);
+        mStatusBarHeaderInnerLayout = findViewById(R.id.layout_inner_header);
+        mBackgroundImage.setClipToOutline(true);
 
         Configuration config = mContext.getResources().getConfiguration();
         setDatePrivacyContainersWidth(config.orientation == Configuration.ORIENTATION_LANDSCAPE);
@@ -233,8 +322,22 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                 QS_BATTERY_STYLE,
                 QS_BATTERY_LOCATION,
                 QS_SHOW_BATTERY_PERCENT,
-                QS_SHOW_BATTERY_ESTIMATE);
-    }
+                QS_SHOW_BATTERY_ESTIMATE,
+                ANCIENT_UI_HEADERIMG_SWITCH,
+                ANCIENT_UI_HEADERIMG_STYLE, 
+                ANCIENT_UI_HEADERIMG_SET, 
+                ANCIENT_UI_HEADERIMG_TINT,
+                ANCIENT_UI_HEADERIMG_TINT_CUSTOM,
+                ANCIENT_UI_HEADERIMG_ALPHA,
+                ANCIENT_UI_HEADERIMG_USECUSTOMHEIGHT,
+                IMAGE_HEADER_HEIGHTP,
+                IMAGE_HEADER_HEIGHTL,
+                IMAGE_HEADER_HEIGHTPING,
+                IMAGE_HEADER_HEIGHTNDU,
+                ANCIENT_UI_HEADERIMG_ANIMATION,
+                IMAGE_HEADER_SCALETYPE,
+                ANCIENT_UI_HEADERIMG_LAND_SWITCH);
+          }
 
     void onAttach(TintedIconManager iconManager,
             QSExpansionPathInterpolator qsExpansionPathInterpolator,
@@ -253,6 +356,7 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
 
         mQSExpansionPathInterpolator = qsExpansionPathInterpolator;
         updateAnimators();
+        //updateAnciHeaderimgAnimator();
     }
 
     void setIsSingleCarrier(boolean isSingleCarrier) {
@@ -266,14 +370,14 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
     public QuickQSPanel getHeaderQsPanel() {
         return mHeaderQsPanel;
     }
-
+    
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (mDatePrivacyView.getMeasuredHeight() != mTopViewMeasureHeight) {
             mTopViewMeasureHeight = mDatePrivacyView.getMeasuredHeight();
-            updateAnimators();
         }
+      updateAnimators();
     }
 
     @Override
@@ -342,6 +446,9 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
         boolean gone = largeScreenHeaderActive || mUseCombinedQSHeader || mQsDisabled;
         mStatusIconsView.setVisibility(gone ? View.GONE : View.VISIBLE);
         mDatePrivacyView.setVisibility(gone ? View.GONE : View.VISIBLE);
+        
+        int statusBarSideMargin = mHeaderImageEnabled ? mContext.getResources().getDimensionPixelSize(
+                R.dimen.qs_header_image_side_margin) : 0;
 
         mRoundedCornerPadding = resources.getDimensionPixelSize(
                 R.dimen.rounded_corner_content_padding);
@@ -393,7 +500,7 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
             mBatteryIcon.updateColors(mTextColorPrimary, textColorSecondary,
                     mTextColorPrimary);
         }
-
+        
         MarginLayoutParams qqsLP = (MarginLayoutParams) mHeaderQsPanel.getLayoutParams();
         qqsLP.topMargin = largeScreenHeaderActive || !mUseCombinedQSHeader ? mContext.getResources()
                 .getDimensionPixelSize(R.dimen.qqs_layout_margin_top) : qsOffsetHeight;
@@ -401,8 +508,181 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
 
         updateHeadersPadding();
         updateAnimators();
-
         updateClockDatePadding();
+        updateAnciHeaderimgSet();
+    }
+    
+    private void updateAnciHeaderimgSet() {
+
+        Resources resources = mContext.getResources();
+
+        int orientation = getResources().getConfiguration().orientation; 
+	mColorAccent = Utils.getColorAttrDefaultColor(mContext, android.R.attr.colorAccent);
+        mColorTextPrimary = Utils.getColorAttrDefaultColor(mContext, android.R.attr.textColorPrimary);
+	mColorWindow = Utils.getColorAttrDefaultColor(mContext, android.R.attr.windowBackground);
+        mColorPutihIreng = mContext.getResources().getColor(R.color.puteh_ireng);
+
+	int fkheightzero = resources.getDimensionPixelSize(R.dimen.ancient_qs_zero);  
+	int headersmall = resources.getDimensionPixelSize(R.dimen.ancient_header_small);   
+	int headerbig = resources.getDimensionPixelSize(R.dimen.ancient_header_big);
+
+	if (mHeaderImageEnabled) {
+	     if (mHeaderImageLandDisabled && orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                mBackgroundImage.setVisibility(View.GONE);
+             } else {
+                mBackgroundImage.setVisibility(View.VISIBLE);
+             mBackgroundImage.setVisibility(View.VISIBLE);
+             }
+
+	     if (mAncientUIheaderImgStyle == 0) {
+		 mBackgroundImage.setImageResource(R.drawable.blue);
+	     } else if (mAncientUIheaderImgStyle == 1) {
+		 mBackgroundImage.setImageResource(R.drawable.cloudblue);
+	     } else if (mAncientUIheaderImgStyle == 2) {
+		 mBackgroundImage.setImageResource(R.drawable.cloudgreen);
+	     } else if (mAncientUIheaderImgStyle == 3) {
+		 mBackgroundImage.setImageResource(R.drawable.cloudpelangi);
+	     } else if (mAncientUIheaderImgStyle == 4) {
+		 mBackgroundImage.setImageResource(R.drawable.cloudred);
+	     } else if (mAncientUIheaderImgStyle == 5) {
+	 	 mBackgroundImage.setImageResource(R.drawable.cloudungu);
+	     } else if (mAncientUIheaderImgStyle == 6) {
+		 mBackgroundImage.setImageResource(R.drawable.cloudwave);
+             } else if (mAncientUIheaderImgStyle == 7) {
+		 mBackgroundImage.setImageResource(R.drawable.debu);
+	     } else if (mAncientUIheaderImgStyle == 8) {
+		 mBackgroundImage.setImageResource(R.drawable.dna);
+	     } else if (mAncientUIheaderImgStyle == 9) {
+		 mBackgroundImage.setImageResource(R.drawable.kristal);
+	     } else if (mAncientUIheaderImgStyle == 10) {
+	 	 mBackgroundImage.setImageResource(R.drawable.petir);
+	     } else if (mAncientUIheaderImgStyle == 11) {
+		 mBackgroundImage.setImageResource(R.drawable.salju);
+	     } else if (mAncientUIheaderImgStyle == 12) {
+		 mBackgroundImage.setImageResource(R.drawable.max);
+             } else if (mAncientUIheaderImgStyle == 13) {
+		 mBackgroundImage.setImageResource(R.drawable.newer);
+             } else if (mAncientUIheaderImgStyle == 14) {
+		 mBackgroundImage.setImageResource(R.drawable.aqua);
+             } else if (mAncientUIheaderImgStyle == 15) {
+		 mBackgroundImage.setImageResource(R.drawable.bleach);
+             } else if (mAncientUIheaderImgStyle == 16) {
+		 mBackgroundImage.setImageResource(R.drawable.bluelock);
+             } else if (mAncientUIheaderImgStyle == 17) {
+		 mBackgroundImage.setImageResource(R.drawable.chainsaw);
+             } else if (mAncientUIheaderImgStyle == 18) {
+		 mBackgroundImage.setImageResource(R.drawable.cyberpunk);
+             } else if (mAncientUIheaderImgStyle == 19) {
+		 mBackgroundImage.setImageResource(R.drawable.gintama);
+             } else if (mAncientUIheaderImgStyle == 20) {
+		 mBackgroundImage.setImageResource(R.drawable.hunterx);
+             } else if (mAncientUIheaderImgStyle == 21) {
+		 mBackgroundImage.setImageResource(R.drawable.hoshi);
+             } else if (mAncientUIheaderImgStyle == 22) {
+		 mBackgroundImage.setImageResource(R.drawable.itachi);
+             } else if (mAncientUIheaderImgStyle == 23) {
+		 mBackgroundImage.setImageResource(R.drawable.itachii);
+             } else if (mAncientUIheaderImgStyle == 24) {
+		 mBackgroundImage.setImageResource(R.drawable.jujutsu);
+             } else if (mAncientUIheaderImgStyle == 25) {
+		 mBackgroundImage.setImageResource(R.drawable.kenpachi);
+             } else if (mAncientUIheaderImgStyle == 26) {
+		 mBackgroundImage.setImageResource(R.drawable.mikasa);
+             } else if (mAncientUIheaderImgStyle == 27) {
+		 mBackgroundImage.setImageResource(R.drawable.naruto);
+             } else if (mAncientUIheaderImgStyle == 28) {
+		 mBackgroundImage.setImageResource(R.drawable.onepiece);
+             } else if (mAncientUIheaderImgStyle == 29) {
+		 mBackgroundImage.setImageResource(R.drawable.yorforgor);
+             } else if (mAncientUIheaderImgStyle == 30) {
+		 mBackgroundImage.setImageResource(R.drawable.zoro);
+             } else if (mAncientUIheaderImgStyle == 31) {
+		 mBackgroundImage.setImageResource(R.drawable.yorochi);
+             } else if (mAncientUIheaderImgStyle == 32) {
+		 mBackgroundImage.setImageResource(R.drawable.uchihas);
+             } else if (mAncientUIheaderImgStyle == 33) {
+		 mBackgroundImage.setImageResource(R.drawable.tokyorevengers);
+             } else if (mAncientUIheaderImgStyle == 34) {
+		 mBackgroundImage.setImageResource(R.drawable.pokemon);
+             } else if (mAncientUIheaderImgStyle == 35) {
+		 mBackgroundImage.setImageResource(R.drawable.kakashi);
+             } else if (mAncientUIheaderImgStyle == 36) {
+		 mBackgroundImage.setImageResource(R.drawable.hunter);
+             } else if (mAncientUIheaderImgStyle == 37) {
+		 mBackgroundImage.setImageResource(R.drawable.haikyuu);
+             } else if (mAncientUIheaderImgStyle == 38) {
+		 mBackgroundImage.setImageResource(R.drawable.gojo);
+             } else if (mAncientUIheaderImgStyle == 39) {
+		 mBackgroundImage.setImageResource(R.drawable.airballons);
+             } else if (mAncientUIheaderImgStyle == 40) {
+		 mBackgroundImage.setImageResource(R.drawable.demonslayer);
+             } else if (mAncientUIheaderImgStyle == 41) {
+		 mBackgroundImage.setImageResource(R.drawable.bunnygirl);
+             } else if (mAncientUIheaderImgStyle == 42) {
+		 mBackgroundImage.setImageResource(R.drawable.attackontitan);
+             } else if (mAncientUIheaderImgStyle == 43) {
+		 mBackgroundImage.setImageResource(R.drawable.akame);
+             } else if (mAncientUIheaderImgStyle == 44) {
+		 mBackgroundImage.setImageResource(R.drawable.nezuko);
+             } else if (mAncientUIheaderImgStyle == 45) {
+		 mBackgroundImage.setImageResource(R.drawable.naruto1);
+             } else if (mAncientUIheaderImgStyle == 46) {
+		 mBackgroundImage.setImageResource(R.drawable.animegirl);
+             } else if (mAncientUIheaderImgStyle == 47) {
+		 mBackgroundImage.setImageResource(R.drawable.animegirl2);
+             }
+
+             if (digawefull) {
+                mBackgroundImage.setScaleType(ImageView.ScaleType.FIT_XY);
+	     } else {
+                mBackgroundImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+	     }
+
+             mBackgroundImage.setAlpha(mAncientUIheaderAlphaStyle);
+
+             if (mAncientUIheaderTintStyle == 0) {
+		 mBackgroundImage.setColorFilter(null);
+	     } else if (mAncientUIheaderTintStyle == 1) {
+		 mBackgroundImage.setColorFilter(mColorAccent);
+	     } else if (mAncientUIheaderTintStyle == 2) {
+		 mBackgroundImage.setColorFilter(mColorTextPrimary);
+	     } else if (mAncientUIheaderTintStyle == 3) {
+		 mBackgroundImage.setColorFilter(mColorWindow);
+	     } else if (mAncientUIheaderTintStyle == 4) {
+		 mBackgroundImage.setColorFilter(mColorPutihIreng);
+	     } else if (mAncientUIheaderTintStyle == 5) {
+		 mBackgroundImage.setColorFilter(EvlUtils.getRandomColor(mContext));
+	     } else if (mAncientUIheaderTintStyle == 6) {
+		 mBackgroundImage.setColorFilter(mAncientUIheaderTintStyleCustom);
+	     }
+
+        } else { 
+
+	     mBackgroundImage.setVisibility(View.GONE);	
+
+	}
+
+	ViewGroup.MarginLayoutParams jembut = (ViewGroup.MarginLayoutParams) mStatusBarHeaderMachineLayout.getLayoutParams();
+	          if (mHeaderImageEnabled) {    
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {  
+                if (mHeaderImageHeightEnabled) {  
+                   jembut.height = jembutpanjangheight;
+                } else {  
+                   jembut.height = headersmall;
+                }
+            } else {    
+                if (mHeaderImageHeightEnabled) {  
+                   jembut.height = jembutheight;
+                } else {  
+                     jembut.height = headersmall;
+                }
+            }
+          } else {  
+              jembut.height = fkheightzero;
+          }
+	jembut.setMargins(jembutpinggir, jembutduwur, jembutpinggir, 0);
+	mStatusBarHeaderMachineLayout.setLayoutParams(jembut); 
+
     }
 
     private void updateClockDatePadding() {
@@ -428,6 +708,7 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
             return;
         }
         updateAlphaAnimator();
+      //  updateAnciHeaderimgAnimator();
         int offset = mTopViewMeasureHeight;
 
         mTranslationAnimator = new TouchAnimator.Builder()
@@ -437,6 +718,76 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                         : null)
                 .build();
     }
+    
+   /* private void updateAnciHeaderimgAnimator() {
+	if (mHeaderImageEnabled) { 
+	 if (mAncientUIheaderStyle == 0) {   
+	      if (mAncientUIheaderAniStyle == 0) {
+	          TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 1f, 1) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 1f, 1)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 1, 0, 0);
+	          mAnciHeaderimgAnimator = ancieimganimate.build();
+	      } else if (mAncientUIheaderAniStyle == 1) {
+	          TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 1f, 1/3) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 1f, 1)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 1, 0, 0);
+	          mAnciHeaderimgAnimator = ancieimganimate.build();
+	      } else if (mAncientUIheaderAniStyle == 2) {
+	          TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 1f, 1/3) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 1f, 1)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 1, 0, 0);
+	          mAnciHeaderimgAnimator = ancieimganimate.build();
+	      } else if (mAncientUIheaderAniStyle == 3) {
+	          TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 1f, 0) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 1f, 0)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 1, 0, 0);
+	          mAnciHeaderimgAnimator = ancieimganimate.build();
+	      } 
+         } else if (mAncientUIheaderStyle == 1) {
+	      if (mAncientUIheaderAniStyle == 0) {
+	          TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 1f, 1) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 1f, 1)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 0, 0, 1);
+	          mAnciHeaderimgAnimator = ancieimganimate.build();
+	      } else if (mAncientUIheaderAniStyle == 1) {
+	          TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 0.3f, 1) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 1f, 1)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 0, 0, 1);
+	          mAnciHeaderimgAnimator = ancieimganimate.build();
+	      } else if (mAncientUIheaderAniStyle == 2) {
+	          TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 0.3f, 1) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 1f, 1)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 0, 0, 1);
+	          mAnciHeaderimgAnimator = ancieimganimate.build();
+	      } else if (mAncientUIheaderAniStyle == 3) {
+	          TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 0f, 1) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 0f, 1)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 0, 0, 1);
+	          mAnciHeaderimgAnimator = ancieimganimate.build();
+	      } 
+         } else if (mAncientUIheaderStyle == 2) {
+	      TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 1f, 1) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 1f, 1)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 1, 1, 1);
+	      mAnciHeaderimgAnimator = ancieimganimate.build(); 
+         }
+       } else {
+	    TouchAnimator.Builder ancieimganimate = new TouchAnimator.Builder()
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleX", 0f, 0) 
+                    .addFloat(mStatusBarHeaderInnerLayout, "scaleY", 0f, 0)
+		    .addFloat(mStatusBarHeaderInnerLayout, "alpha", 0, 0, 0);
+	    mAnciHeaderimgAnimator = ancieimganimate.build();
+         }
+    } */
 
     private void updateAlphaAnimator() {
         if (mUseCombinedQSHeader) {
@@ -799,6 +1150,52 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
                 break;
             default:
                 break;
+        }
+        
+        if (ANCIENT_UI_HEADERIMG_STYLE.equals(key)) {
+            mAncientUIheaderStyle = TunerService.parseInteger(newValue, 0);
+            updateResources();
+	} else if (ANCIENT_UI_HEADERIMG_ANIMATION.equals(key)) {
+            mAncientUIheaderAniStyle = TunerService.parseInteger(newValue, 0);
+            updateResources();	
+	} else if (ANCIENT_UI_HEADERIMG_SET.equals(key)) {
+            mAncientUIheaderImgStyle = TunerService.parseInteger(newValue, 0);
+            updateResources();	
+	} else if (ANCIENT_UI_HEADERIMG_SWITCH.equals(key)) {
+            mHeaderImageEnabled = TunerService.parseIntegerSwitch(newValue, false);
+            updateResources();
+        } else if (ANCIENT_UI_HEADERIMG_LAND_SWITCH.equals(key)) {
+            mHeaderImageLandDisabled = TunerService.parseIntegerSwitch(newValue, true);
+            updateResources();	
+	} else if (ANCIENT_UI_HEADERIMG_TINT.equals(key)) {
+            mAncientUIheaderTintStyle = TunerService.parseInteger(newValue, 0);
+            updateResources();	
+	} else if (ANCIENT_UI_HEADERIMG_TINT_CUSTOM.equals(key)) {
+            mAncientUIheaderTintStyleCustom = TunerService.parseInteger(newValue, 0XFFFFFFFF);
+            updateResources();		
+	} else if (ANCIENT_UI_HEADERIMG_ALPHA.equals(key)) {
+            mAncientUIheaderAlphaStyle = TunerService.parseInteger(newValue, 255);
+            updateResources();			
+	} else if (ANCIENT_UI_HEADERIMG_USECUSTOMHEIGHT.equals(key)) {
+            mHeaderImageHeightEnabled = TunerService.parseIntegerSwitch(newValue, false);
+            updateResources();			
+	} else if (IMAGE_HEADER_HEIGHTP.equals(key)) {
+            jembutheight = TunerService.parseInteger(newValue, 155);
+            updateResources();			
+	} else if (IMAGE_HEADER_HEIGHTL.equals(key)) {
+            jembutpanjangheight = TunerService.parseInteger(newValue, 155);
+            updateResources();			
+	} else if (IMAGE_HEADER_HEIGHTPING.equals(key)) {
+            jembutpinggir = TunerService.parseInteger(newValue, 0);
+            updateResources();			
+	} else if (IMAGE_HEADER_HEIGHTNDU.equals(key)) {
+            jembutduwur = TunerService.parseInteger(newValue, 0);
+            updateResources();
+        } else if (IMAGE_HEADER_SCALETYPE.equals(key)) {
+            digawefull = TunerService.parseIntegerSwitch(newValue, false);
+            updateResources();      
+        mClockView.setClockVisibleByUser(!StatusBarIconController.getIconHideList(
+                mContext, newValue).contains("clock"));
         }
     }
 
