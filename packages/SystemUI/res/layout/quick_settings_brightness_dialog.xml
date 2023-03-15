@@ -34,6 +34,19 @@
             android:contentDescription="@null"
             android:visibility="gone"
         />
+        
+        <TextView 
+           android:textSize="13.5sp" 
+           android:textColor="?android:attr/textColorPrimaryInverse" 
+	   android:gravity="center_vertical" 
+	   android:id="@+id/anci_percentbrightness" 
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+	   android:text="Text" 
+           android:layout_gravity="center_vertical"
+           android:background="@drawable/brightness_bg"
+           android:paddingStart="10.0dip"
+           android:layout_marginEnd="20.0dip" />
 
         <com.android.systemui.settings.brightness.ToggleSeekBar
             android:id="@+id/slider"
