@@ -559,77 +559,157 @@ public class QuickStatusBarHeader extends FrameLayout implements TunerService.Tu
 	     } else if (mAncientUIheaderImgStyle == 11) {
 		 mBackgroundImage.setImageResource(R.drawable.salju);
 	     } else if (mAncientUIheaderImgStyle == 12) {
-		 mBackgroundImage.setImageResource(R.drawable.max);
+		 mBackgroundImage.setImageResource(R.drawable.anime1);
              } else if (mAncientUIheaderImgStyle == 13) {
-		 mBackgroundImage.setImageResource(R.drawable.newer);
+		 mBackgroundImage.setImageResource(R.drawable.anime2);
              } else if (mAncientUIheaderImgStyle == 14) {
-		 mBackgroundImage.setImageResource(R.drawable.aqua);
+		 mBackgroundImage.setImageResource(R.drawable.anime3);
              } else if (mAncientUIheaderImgStyle == 15) {
-		 mBackgroundImage.setImageResource(R.drawable.bleach);
+		 mBackgroundImage.setImageResource(R.drawable.anime4);
              } else if (mAncientUIheaderImgStyle == 16) {
-		 mBackgroundImage.setImageResource(R.drawable.bluelock);
+		 mBackgroundImage.setImageResource(R.drawable.anime5);
              } else if (mAncientUIheaderImgStyle == 17) {
-		 mBackgroundImage.setImageResource(R.drawable.chainsaw);
+		 mBackgroundImage.setImageResource(R.drawable.anime6);
              } else if (mAncientUIheaderImgStyle == 18) {
-		 mBackgroundImage.setImageResource(R.drawable.cyberpunk);
+		 mBackgroundImage.setImageResource(R.drawable.anime7);
              } else if (mAncientUIheaderImgStyle == 19) {
-		 mBackgroundImage.setImageResource(R.drawable.gintama);
+		 mBackgroundImage.setImageResource(R.drawable.anime8);
              } else if (mAncientUIheaderImgStyle == 20) {
-		 mBackgroundImage.setImageResource(R.drawable.hunterx);
+		 mBackgroundImage.setImageResource(R.drawable.anime9);
              } else if (mAncientUIheaderImgStyle == 21) {
-		 mBackgroundImage.setImageResource(R.drawable.hoshi);
+		 mBackgroundImage.setImageResource(R.drawable.anime10);
              } else if (mAncientUIheaderImgStyle == 22) {
-		 mBackgroundImage.setImageResource(R.drawable.itachi);
+		 mBackgroundImage.setImageResource(R.drawable.anime11);
              } else if (mAncientUIheaderImgStyle == 23) {
-		 mBackgroundImage.setImageResource(R.drawable.itachii);
+		 mBackgroundImage.setImageResource(R.drawable.anime12);
              } else if (mAncientUIheaderImgStyle == 24) {
-		 mBackgroundImage.setImageResource(R.drawable.jujutsu);
+		 mBackgroundImage.setImageResource(R.drawable.anime13);
              } else if (mAncientUIheaderImgStyle == 25) {
-		 mBackgroundImage.setImageResource(R.drawable.kenpachi);
+		 mBackgroundImage.setImageResource(R.drawable.anime14);
              } else if (mAncientUIheaderImgStyle == 26) {
-		 mBackgroundImage.setImageResource(R.drawable.mikasa);
+		 mBackgroundImage.setImageResource(R.drawable.anime15);
              } else if (mAncientUIheaderImgStyle == 27) {
-		 mBackgroundImage.setImageResource(R.drawable.naruto);
+		 mBackgroundImage.setImageResource(R.drawable.anime16);
              } else if (mAncientUIheaderImgStyle == 28) {
-		 mBackgroundImage.setImageResource(R.drawable.onepiece);
+		 mBackgroundImage.setImageResource(R.drawable.anime17);
              } else if (mAncientUIheaderImgStyle == 29) {
-		 mBackgroundImage.setImageResource(R.drawable.yorforgor);
+		 mBackgroundImage.setImageResource(R.drawable.anime18);
              } else if (mAncientUIheaderImgStyle == 30) {
-		 mBackgroundImage.setImageResource(R.drawable.zoro);
+		 mBackgroundImage.setImageResource(R.drawable.anime19);
              } else if (mAncientUIheaderImgStyle == 31) {
-		 mBackgroundImage.setImageResource(R.drawable.yorochi);
+		 mBackgroundImage.setImageResource(R.drawable.anime20);
              } else if (mAncientUIheaderImgStyle == 32) {
-		 mBackgroundImage.setImageResource(R.drawable.uchihas);
+		 mBackgroundImage.setImageResource(R.drawable.anime21);
              } else if (mAncientUIheaderImgStyle == 33) {
-		 mBackgroundImage.setImageResource(R.drawable.tokyorevengers);
+		 mBackgroundImage.setImageResource(R.drawable.anime22);
              } else if (mAncientUIheaderImgStyle == 34) {
-		 mBackgroundImage.setImageResource(R.drawable.pokemon);
+		 mBackgroundImage.setImageResource(R.drawable.anime23);
              } else if (mAncientUIheaderImgStyle == 35) {
-		 mBackgroundImage.setImageResource(R.drawable.kakashi);
+		 mBackgroundImage.setImageResource(R.drawable.anime24);
              } else if (mAncientUIheaderImgStyle == 36) {
-		 mBackgroundImage.setImageResource(R.drawable.hunter);
+		 mBackgroundImage.setImageResource(R.drawable.anime25);
              } else if (mAncientUIheaderImgStyle == 37) {
-		 mBackgroundImage.setImageResource(R.drawable.haikyuu);
+		 mBackgroundImage.setImageResource(R.drawable.anime26);
              } else if (mAncientUIheaderImgStyle == 38) {
-		 mBackgroundImage.setImageResource(R.drawable.gojo);
+		 mBackgroundImage.setImageResource(R.drawable.anime27);
              } else if (mAncientUIheaderImgStyle == 39) {
-		 mBackgroundImage.setImageResource(R.drawable.airballons);
+		 mBackgroundImage.setImageResource(R.drawable.anime28);
              } else if (mAncientUIheaderImgStyle == 40) {
-		 mBackgroundImage.setImageResource(R.drawable.demonslayer);
+		 mBackgroundImage.setImageResource(R.drawable.anime29);
              } else if (mAncientUIheaderImgStyle == 41) {
-		 mBackgroundImage.setImageResource(R.drawable.bunnygirl);
+		 mBackgroundImage.setImageResource(R.drawable.anime30);
              } else if (mAncientUIheaderImgStyle == 42) {
-		 mBackgroundImage.setImageResource(R.drawable.attackontitan);
+		 mBackgroundImage.setImageResource(R.drawable.anime31);
              } else if (mAncientUIheaderImgStyle == 43) {
-		 mBackgroundImage.setImageResource(R.drawable.akame);
+		 mBackgroundImage.setImageResource(R.drawable.anime32);
              } else if (mAncientUIheaderImgStyle == 44) {
-		 mBackgroundImage.setImageResource(R.drawable.nezuko);
+		 mBackgroundImage.setImageResource(R.drawable.anime33);
              } else if (mAncientUIheaderImgStyle == 45) {
-		 mBackgroundImage.setImageResource(R.drawable.naruto1);
+		 mBackgroundImage.setImageResource(R.drawable.anime34);
              } else if (mAncientUIheaderImgStyle == 46) {
-		 mBackgroundImage.setImageResource(R.drawable.animegirl);
+		 mBackgroundImage.setImageResource(R.drawable.anime35);
              } else if (mAncientUIheaderImgStyle == 47) {
-		 mBackgroundImage.setImageResource(R.drawable.animegirl2);
+		 mBackgroundImage.setImageResource(R.drawable.anime36);
+             } else if (mAncientUIheaderImgStyle == 48) {
+		 mBackgroundImage.setImageResource(R.drawable.anime37);
+             } else if (mAncientUIheaderImgStyle == 49) {
+		 mBackgroundImage.setImageResource(R.drawable.anime38);
+             } else if (mAncientUIheaderImgStyle == 50) {
+		 mBackgroundImage.setImageResource(R.drawable.anime39);
+             } else if (mAncientUIheaderImgStyle == 51) {
+		 mBackgroundImage.setImageResource(R.drawable.anime40);
+             } else if (mAncientUIheaderImgStyle == 52) {
+		 mBackgroundImage.setImageResource(R.drawable.anime41);
+             } else if (mAncientUIheaderImgStyle == 53) {
+		 mBackgroundImage.setImageResource(R.drawable.anime42);
+             } else if (mAncientUIheaderImgStyle == 54) {
+		 mBackgroundImage.setImageResource(R.drawable.anime43);
+             } else if (mAncientUIheaderImgStyle == 55) {
+		 mBackgroundImage.setImageResource(R.drawable.anime44);
+             } else if (mAncientUIheaderImgStyle == 56) {
+		 mBackgroundImage.setImageResource(R.drawable.anime45);
+             } else if (mAncientUIheaderImgStyle == 57) {
+		 mBackgroundImage.setImageResource(R.drawable.anime46);
+             } else if (mAncientUIheaderImgStyle == 58) {
+		 mBackgroundImage.setImageResource(R.drawable.anime47);
+             } else if (mAncientUIheaderImgStyle == 59) {
+		 mBackgroundImage.setImageResource(R.drawable.anime48);
+             } else if (mAncientUIheaderImgStyle == 60) {
+		 mBackgroundImage.setImageResource(R.drawable.anime49);
+             } else if (mAncientUIheaderImgStyle == 61) {
+		 mBackgroundImage.setImageResource(R.drawable.anime50);
+             } else if (mAncientUIheaderImgStyle == 62) {
+		 mBackgroundImage.setImageResource(R.drawable.banner1);
+             } else if (mAncientUIheaderImgStyle == 63) {
+		 mBackgroundImage.setImageResource(R.drawable.banner2);
+             } else if (mAncientUIheaderImgStyle == 64) {
+		 mBackgroundImage.setImageResource(R.drawable.banner3);
+             } else if (mAncientUIheaderImgStyle == 65) {
+		 mBackgroundImage.setImageResource(R.drawable.banner4);
+             } else if (mAncientUIheaderImgStyle == 66) {
+		 mBackgroundImage.setImageResource(R.drawable.banner5);
+             } else if (mAncientUIheaderImgStyle == 67) {
+		 mBackgroundImage.setImageResource(R.drawable.cute1);
+             } else if (mAncientUIheaderImgStyle == 68) {
+		 mBackgroundImage.setImageResource(R.drawable.cute2);
+             } else if (mAncientUIheaderImgStyle == 69) {
+		 mBackgroundImage.setImageResource(R.drawable.flower1);
+             } else if (mAncientUIheaderImgStyle == 70) {
+		 mBackgroundImage.setImageResource(R.drawable.flower2);
+             } else if (mAncientUIheaderImgStyle == 71) {
+		 mBackgroundImage.setImageResource(R.drawable.planetary1);
+             } else if (mAncientUIheaderImgStyle == 72) {
+		 mBackgroundImage.setImageResource(R.drawable.planetary2);
+             } else if (mAncientUIheaderImgStyle == 73) {
+		 mBackgroundImage.setImageResource(R.drawable.planetary3);
+             } else if (mAncientUIheaderImgStyle == 74) {
+		 mBackgroundImage.setImageResource(R.drawable.planetary4);
+             } else if (mAncientUIheaderImgStyle == 75) {
+		 mBackgroundImage.setImageResource(R.drawable.planetary5);
+             } else if (mAncientUIheaderImgStyle == 76) {
+		 mBackgroundImage.setImageResource(R.drawable.scene1);
+             } else if (mAncientUIheaderImgStyle == 77) {
+		 mBackgroundImage.setImageResource(R.drawable.scene2);
+             } else if (mAncientUIheaderImgStyle == 78) {
+		 mBackgroundImage.setImageResource(R.drawable.scene3);
+             } else if (mAncientUIheaderImgStyle == 79) {
+		 mBackgroundImage.setImageResource(R.drawable.scene4);
+             } else if (mAncientUIheaderImgStyle == 80) {
+		 mBackgroundImage.setImageResource(R.drawable.scene5);
+             } else if (mAncientUIheaderImgStyle == 81) {
+		 mBackgroundImage.setImageResource(R.drawable.scene6);
+             } else if (mAncientUIheaderImgStyle == 82) {
+		 mBackgroundImage.setImageResource(R.drawable.scene7);
+             } else if (mAncientUIheaderImgStyle == 83) {
+		 mBackgroundImage.setImageResource(R.drawable.scene8);
+             } else if (mAncientUIheaderImgStyle == 84) {
+		 mBackgroundImage.setImageResource(R.drawable.scene9);
+             } else if (mAncientUIheaderImgStyle == 85) {
+		 mBackgroundImage.setImageResource(R.drawable.scene10);
+             } else if (mAncientUIheaderImgStyle == 86) {
+		 mBackgroundImage.setImageResource(R.drawable.white1);
+             } else if (mAncientUIheaderImgStyle == 87) {
+		 mBackgroundImage.setImageResource(R.drawable.white2);
              }
 
              if (digawefull) {
